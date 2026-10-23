@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Mealf is a development preview. Review the release notes and implementation status for the exact image you are installing. Published-image checks apply to that image, not to later "><title>Upgrades and maintenance — Mealf</title><link rel="canonical" href="https://cloudcookch.github.io/mealf-website/wiki/upgrades-and-maintenance.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html" aria-current="page">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Maintain</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#update-a-preview-installation">Update a preview installation</a></li><li class="toc-level-2"><a href="#verify-after-the-update">Verify after the update</a></li><li class="toc-level-2"><a href="#roll-back-safely">Roll back safely</a></li><li class="toc-level-2"><a href="#routine-health-and-diagnostics">Routine health and diagnostics</a></li><li class="toc-level-2"><a href="#automatic-and-manual-retention">Automatic and manual retention</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Upgrades and maintenance</h1>
+<p>Mealf is a development preview. Review the release notes and implementation status for
+the exact image you are installing. Published-image checks apply to that image, not to
+later source commits or every live external service.</p>
+<h2 id="update-a-preview-installation">Update a preview installation</h2>
+<ol>
+<li>
+<p>Finish active browser edits and synchronise devices where possible. Privately export
+pending work from devices that cannot sync.</p>
+</li>
+<li>
+<p>Record the current image tag/digest, Compose files, environment and volume identity.</p>
+</li>
+<li>
+<p>Create and verify a <a href="backup-and-recovery.html">complete pre-upgrade backup</a>.</p>
+</li>
+<li>
+<p>In the existing installation directory, keep the <code>:preview</code> image and <code>pull_policy: always</code> from <a href="installation.html">Installation</a>, or choose an exact image tag from the <a href="https://github.com/CLOUDCOOKCH/aircooker-server/releases" rel="noopener noreferrer">published releases</a>. Preserve your settings and volume.</p>
+</li>
+<li>
+<p>Pull first, then stop the old backend and start the new one:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose -f compose.yml pull
+docker compose -f compose.yml stop mealf
+docker compose -f compose.yml up -d
+docker compose -f compose.yml ps
+docker compose -f compose.yml logs --tail=100 mealf
+</code></pre></div></li>
+</ol>
+<p>If you use <code>compose.tunnel.yaml</code>, keep <strong>both</strong> <code>-f</code> arguments on these commands.
+Keep your existing project name, <code>/data</code> volume, ingress and any intentional custom
+port/command/healthcheck settings. Never start a second backend against the same volume.
+Never use <code>down -v</code> for an upgrade.</p>
+<p>For a source build, check out the intended revision, build it with <code>docker compose build</code>,
+then stop <code>aircooker</code> and use <code>docker compose up -d</code> in the same project. Review any
+Compose changes rather than replacing the deployment's configuration blindly.</p>
+<h2 id="verify-after-the-update">Verify after the update</h2>
+<p>Check the private and public health endpoints:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">curl --fail http://127.0.0.1:5152/api/v1/system/health
+curl --fail https://mealf.example.com/api/v1/system/health
+</code></pre></div><p>Replace the example hostname; the local check applies to this site’s port-5152 configuration. A source build may use port 8080.
+Both should report <code>{&quot;status&quot;:&quot;ok&quot;}</code>. Inspect startup/migration errors, sign in and verify
+the existing household, recipes, photos and calendar. Save a test change and confirm
+it survives reload. Check integration/job status instead of assuming external writes
+occurred merely because work was queued.</p>
+<p>In the PWA, finish edits, accept the update prompt and reopen the app as needed.
+Do not clear browser storage to update it. If setup unexpectedly appears, check the
+volume mapping before creating a household. See <a href="troubleshooting.html">Troubleshooting</a>.</p>
+<h2 id="roll-back-safely">Roll back safely</h2>
+<p>A migration failure rolls back its transaction. Once a newer schema is committed,
+downgrading that database is unsupported. Stop the new backend, preserve its current
+volume, and restore the pre-upgrade volume snapshot with the prior matching image.
+Verify it privately before returning traffic. Devices may need sign-in and explicit
+history recovery after a database rollback.</p>
+<h2 id="routine-health-and-diagnostics">Routine health and diagnostics</h2>
+<p>The administration overview shows queue/import states, safe error codes, database/WAL
+size, photo usage and free space. Authenticated read-only diagnostics are also available
+at <code>/api/v1/admin/diagnostics</code> and <code>/api/v1/admin/jobs</code>. Do not share raw database dumps,
+credentials, recipe sources or unredacted logs in issues.</p>
+<p>Keep enough disk space for the database, WAL, photos, import sources, backups and
+temporary archive transfers. SQLite file size does not immediately shrink after logical
+cleanup. Do not delete WAL files, sync receipts or unreferenced photos by hand; an offline
+device may still depend on them.</p>
+<h2 id="automatic-and-manual-retention">Automatic and manual retention</h2>
+<p>The single backend worker runs bounded hourly cleanup. It preserves pending user work,
+sync replay/history proofs, Bring! ownership and photos needed by offline edits.
+Current source includes these conservative windows:</p>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Eligible data</th>
+<th>Window / condition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Raw AI import uploads</td>
+<td>After 7 days, unless referenced by queued/running import work</td>
+</tr>
+<tr>
+<td>Confirmed/cancelled import previews and concluded source payloads</td>
+<td>After 30 days, with stable replay receipts retained</td>
+</tr>
+<tr>
+<td>AI attempt audit records</td>
+<td>After 90 days</td>
+</tr>
+<tr>
+<td>Eligible completed notification jobs</td>
+<td>After 30 days; required receipts remain</td>
+</tr>
+<tr>
+<td>Expired sessions without notification references</td>
+<td>After 90 days past refresh expiry</td>
+</tr>
+<tr>
+<td>Audit events</td>
+<td>90 days</td>
+</tr>
+<tr>
+<td>Stale export/restore temporary files</td>
+<td>Older than 24 hours, startup-only safe selection</td>
+</tr>
+</tbody>
+</table></div>
+<p>Inspect extra cleanup candidates locally:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose -f compose.yml exec mealf python -m aircooker.cli cleanup --dry-run
+</code></pre></div><p>Apply a bounded pass by removing <code>--dry-run</code>. For source builds use service <code>aircooker</code>
+with the source Compose file. Output contains category counts. This is maintenance,
+not full household deletion or guaranteed forensic erasure. Backups and exports have
+their own operator-managed retention; the application does not delete them for you.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/DEPLOYMENT.md" rel="noopener noreferrer">deployment</a>,
+<a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/RETENTION.md" rel="noopener noreferrer">retention policy</a>
+and <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/src/aircooker/retention.py" rel="noopener noreferrer">retention implementation</a>.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Upgrades-and-Maintenance.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="backup-and-recovery.html"><span>Previous guide</span><strong>Backup &amp; recovery</strong></a><a href="troubleshooting.html"><span>Next guide</span><strong>Troubleshooting <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#update-a-preview-installation">Update a preview installation</a></li><li class="toc-level-2"><a href="#verify-after-the-update">Verify after the update</a></li><li class="toc-level-2"><a href="#roll-back-safely">Roll back safely</a></li><li class="toc-level-2"><a href="#routine-health-and-diagnostics">Routine health and diagnostics</a></li><li class="toc-level-2"><a href="#automatic-and-manual-retention">Automatic and manual retention</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

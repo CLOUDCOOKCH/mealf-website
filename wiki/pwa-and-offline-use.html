@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Mealf's primary client is the installable browser app at your public HTTPS origin's /app/ path. The administration console remains at /. Use the same origin for the client and API;"><title>PWA and offline use — Mealf</title><link rel="canonical" href="https://cloudcookch.github.io/mealf-website/wiki/pwa-and-offline-use.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html" aria-current="page">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Use &amp; configure</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#install-on-a-device">Install on a device</a></li><li class="toc-level-2"><a href="#use-recipes-and-the-calendar">Use recipes and the calendar</a></li><li class="toc-level-2"><a href="#what-works-offline">What works offline</a></li><li class="toc-level-2"><a href="#synchronisation-and-conflicts">Synchronisation and conflicts</a></li><li class="toc-level-2"><a href="#preserve-work-before-recovery-or-an-update">Preserve work before recovery or an update</a></li><li class="toc-level-2"><a href="#platform-limits">Platform limits</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">PWA and offline use</h1>
+<p>Mealf's primary client is the installable browser app at your public HTTPS origin's
+<code>/app/</code> path. The administration console remains at <code>/</code>. Use the same origin for the
+client and API; see <a href="installation.html">Installation</a> and <a href="https-and-reverse-proxy.html">HTTPS and reverse proxy</a>.</p>
+<h2 id="install-on-a-device">Install on a device</h2>
+<ol>
+<li>Open <code>https://mealf.example.com/app/</code> and sign in with the household account.</li>
+<li>On iPhone/iPad, use Safari → Share → <strong>Add to Home Screen</strong>, then open the new icon.
+On a supported desktop/Android browser, use its <strong>Install app</strong> option.</li>
+<li>Open the app online once and let it synchronise. View photos you will need offline.</li>
+<li>In Settings, request persistent browser storage where supported. Browsers can refuse
+the request or later evict data, so keep exports and synchronise regularly.</li>
+</ol>
+<p>A QR code can contain the public HTTPS app URL for easy opening. It must not contain
+passwords, setup tokens or session secrets. The optional demo has a separate local
+database and does not create or populate a real household.</p>
+<h2 id="use-recipes-and-the-calendar">Use recipes and the calendar</h2>
+<p>Create or edit recipes in Recipes. Ingredients support explicit amounts, fractions and
+ranges; leave unknown quantities blank rather than inventing measurements. Recipe details
+can scale ingredient quantities to the chosen servings. Review every import before saving;
+see <a href="ai-recipe-import.html">AI recipe import</a> for media and provider requirements.</p>
+<p>Calendar supports Day, 3 days and Week views. Move meals by their grip or use the meal
+menu's move form. Multi-day views scroll horizontally. Week options copy plans or apply
+saved templates; copying does not duplicate already cooked leftovers. Record leftover
+portions and schedule them without overbooking the available amount.</p>
+<p>Pantry staples marked available are excluded from Bring! requirements. <strong>Include in
+shopping this week</strong> overrides this for the household's current Monday–Sunday week.
+Meal suggestions use the cached recipe library, ratings, history, variety and leftovers
+without AI. Shared suggestion preferences apply after an online save. Proposed plans
+remain previews until you explicitly approve them.</p>
+<h2 id="what-works-offline">What works offline</h2>
+<p>Recipes, meals, pantry, leftovers, templates, editor drafts, import requests, selected
+photos and outgoing changes are held in the browser's IndexedDB. Local edits survive
+reload and wait for foreground synchronisation. An unseen server photo may be unavailable
+offline. AI extraction, website fetching, initial sign-in, integration changes and new
+notification connections need the backend/network.</p>
+<p>The service worker caches only public build files. It does not cache authenticated API
+responses or private media; private records/photos use the app's separate local database.
+Offline storage is private content on the device, not an encrypted native Keychain.</p>
+<h2 id="synchronisation-and-conflicts">Synchronisation and conflicts</h2>
+<p>Sync runs while the app is open, when reconnecting/returning to the foreground and
+periodically while visible. It does not depend on iPhone Background Sync. Once a change
+reaches the backend, durable import/Bring! jobs continue even if the browser closes.</p>
+<p>Watch the status bar for pending, offline or rejected work. Server commit order determines
+accepted updates, rather than device clocks. A permanent failure for one photo/recipe
+can block that item while other changes continue. Review the rejection in Settings;
+recover the affected recipe as a new copy or retain the server version where offered.
+Do not clear browser storage to resolve a blocked queue.</p>
+<p>After a server database restore, the app can detect changed history and stop old queued
+changes. <strong>Recover server history</strong> explicitly archives local records and queued work
+before adopting an anchored server snapshot. Recipe copies can be restored from these
+archives; reconstruction of other archived record types remains manual.</p>
+<h2 id="preserve-work-before-recovery-or-an-update">Preserve work before recovery or an update</h2>
+<p>Use <strong>Export unsynchronised work</strong> in Settings before changing devices, clearing site
+data or attempting recovery. This browser recovery JSON includes local records, queued
+edits, drafts, archives and available photos, but no session or integration keys. Store
+it privately. It supports inspection/manual recovery; it is not the server household
+archive and is not automatically reimported. A server backup cannot contain edits that
+have never left an offline device.</p>
+<p>For a PWA update, finish active edits, accept the update prompt and close/reopen the
+installed app as needed. Do not uninstall or clear storage with pending work. An OS icon
+may stay cached longer than the page. Signing out revokes the session and hides retained
+work; it does not erase or encrypt browser storage. Remote revocation cannot remove data
+from a disconnected device.</p>
+<h2 id="platform-limits">Platform limits</h2>
+<p>Optional <a href="meal-reminders.html">meal reminders</a> require permission, connectivity and supported
+browser services. The PWA does not provide offline local alarms, native Share extensions,
+WidgetKit widgets, native biometric locking or passkeys. Physical iPhone/Safari behaviour
+and live push delivery remain unverified by the Linux/Chromium tests.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/PWA.md" rel="noopener noreferrer">PWA guide</a>,
+<a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/MOBILE_CALENDAR.md" rel="noopener noreferrer">mobile calendar</a>
+and <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/PLANNING_PREFERENCES.md" rel="noopener noreferrer">planning preferences</a>.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/PWA-and-Offline-Use.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="configuration.html"><span>Previous guide</span><strong>Configuration</strong></a><a href="ai-recipe-import.html"><span>Next guide</span><strong>AI recipe import <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#install-on-a-device">Install on a device</a></li><li class="toc-level-2"><a href="#use-recipes-and-the-calendar">Use recipes and the calendar</a></li><li class="toc-level-2"><a href="#what-works-offline">What works offline</a></li><li class="toc-level-2"><a href="#synchronisation-and-conflicts">Synchronisation and conflicts</a></li><li class="toc-level-2"><a href="#preserve-work-before-recovery-or-an-update">Preserve work before recovery or an update</a></li><li class="toc-level-2"><a href="#platform-limits">Platform limits</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Use portable household exports for moving household content, and protected volume backups for full disaster recovery. Neither includes work that exists only on an offline browser. "><title>Backup and recovery — Mealf</title><link rel="canonical" href="https://cloudcookch.github.io/mealf-website/wiki/backup-and-recovery.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html" aria-current="page">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Maintain</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#download-a-portable-household-export">Download a portable household export</a></li><li class="toc-level-2"><a href="#import-into-another-household">Import into another household</a></li><li class="toc-level-2"><a href="#create-a-consistent-sqlite-snapshot">Create a consistent SQLite snapshot</a></li><li class="toc-level-2"><a href="#restore-a-complete-volume">Restore a complete volume</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Backup and recovery</h1>
+<p>Use portable household exports for moving household content, and protected volume
+backups for full disaster recovery. Neither includes work that exists only on an
+offline browser. Export that device's pending work separately before recovery.</p>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Backup type</th>
+<th>Contains</th>
+<th>Does not provide</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Household JSON/ZIP export</td>
+<td>Household content, referenced photos, planning preferences and accepted-recipe counts</td>
+<td>Password hashes, sessions, integration keys, notification subscriptions or a complete installation snapshot</td>
+</tr>
+<tr>
+<td>Local SQLite snapshot</td>
+<td>Consistent database, including password/session data and durable history</td>
+<td>Separate photo files or configuration/encryption-key files</td>
+</tr>
+<tr>
+<td>Stopped-volume backup</td>
+<td>Database, media and configuration when the entire volume is included</td>
+<td>Unsent edits on disconnected devices</td>
+</tr>
+<tr>
+<td>Browser recovery export</td>
+<td>That browser's records, drafts, outbox, archives and available photos</td>
+<td>An automatically importable household archive or server credentials</td>
+</tr>
+</tbody>
+</table></div>
+<p>All of these can contain private household content. Restrict access and use encrypted
+off-host storage. The application does not automatically encrypt a CLI database backup.</p>
+<h2 id="download-a-portable-household-export">Download a portable household export</h2>
+<ol>
+<li>Sign in to the administration console at <code>/</code>.</li>
+<li>Open <strong>Data</strong> and download the ZIP household export.</li>
+<li>Store it privately and record the server version that created it.</li>
+<li>Test importing a copy into an isolated, compatible installation before relying on it.</li>
+</ol>
+<p>The ZIP includes a versioned <code>manifest.json</code> and referenced <code>media/&lt;UUID&gt;.jpg</code> files
+with checksums. JSON export is also available through the authenticated
+<code>GET /api/v1/admin/export</code> API. The current household JSON format is version 3; ZIP
+envelope version 1 embeds that manifest. Older compatible v1/v2 JSON remains importable.
+Do not relabel an archive to bypass version checks.</p>
+<h2 id="import-into-another-household">Import into another household</h2>
+<p>Configure and sign in to the destination first, then use <strong>Data</strong> to import the supported
+JSON or ZIP file and confirm. This operation <strong>merges</strong> validated records transactionally.
+Duplicate entity IDs reject the whole import with 409; existing data is not overwritten.
+Destructive replacement is not implemented. Do not wipe an existing household to work
+around a merge conflict.</p>
+<p>Limits include 8 MiB JSON/manifest, 280 MiB ZIP, 10,000 entities, 5,000 media records
+and the 256 MiB stored-photo quota. The proxy/CDN can have lower limits. Malformed members,
+symlinks, mismatched checksums and unsupported archive encryption are rejected.
+Reconfigure integrations and reconnect browser notifications after a clean household import.</p>
+<h2 id="create-a-consistent-sqlite-snapshot">Create a consistent SQLite snapshot</h2>
+<p>Choose a new filename; the command refuses to overwrite an existing output:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose -f compose.yml exec mealf python -m aircooker.cli backup --output /data/backups/household.sqlite3
+</code></pre></div><p>For a source-build installation:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose exec aircooker python -m aircooker.cli backup --output /data/backups/household.sqlite3
+</code></pre></div><p>This uses SQLite's online backup API, so the database snapshot is consistent while the
+server is running. The output file is mode 0600 and contains sensitive database state.
+<strong>Photo files and <code>/data/config</code> are separate and must be backed up as well.</strong> A snapshot
+inside the same volume will not protect you from losing that volume or host.</p>
+<p>Never copy only an actively written <code>.sqlite3</code> file with an ordinary file-copy tool;
+WAL writes may be outside it. For complete recovery, stop the backend and make a
+protected backup of the entire local volume using your host's volume-backup tools.
+Include <code>/data/config/integrations.key</code>, the encrypted settings/VAPID files, media and
+database files together. Keep a private record of the matching image digest and Compose
+configuration. Protect Cloudflare connector credentials separately from the Mealf volume.</p>
+<h2 id="restore-a-complete-volume">Restore a complete volume</h2>
+<ol>
+<li>Preserve the current volume and stop all backend writers.</li>
+<li>Restore the complete backup into a separate local volume with UID/GID 10001 ownership.</li>
+<li>Start the matching application image against that volume, isolated from public traffic.</li>
+<li>Verify health, household settings, recipes, photos and plans.</li>
+<li>Use the interactive local <a href="first-run-setup.html#recover-a-forgotten-password">password recovery command</a>
+to revoke restored sessions before public exposure.</li>
+<li>Reopen public ingress only after verification, then sign devices in again.</li>
+</ol>
+<p>Downgrading a migrated database is unsupported. To roll back an upgrade, restore the
+matching pre-upgrade volume with its prior image. A lost encryption key prevents
+decrypting saved integration and push credentials; restoring only the database is not
+a complete recovery.</p>
+<p>An older database can have a different history from a surviving browser. Preserve browser
+recovery exports and use explicit history recovery; do not blindly retry old queues.
+If the VAPID key changed, disconnect/reconnect notifications on each device. Test the
+restoration process regularly; the existence of a backup file is not proof of recovery.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/BACKUP.md" rel="noopener noreferrer">backup documentation</a>
+and <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/src/aircooker/cli.py" rel="noopener noreferrer">local CLI implementation</a>.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Backup-and-Recovery.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="meal-reminders.html"><span>Previous guide</span><strong>Meal reminders</strong></a><a href="upgrades-and-maintenance.html"><span>Next guide</span><strong>Upgrades &amp; maintenance <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#download-a-portable-household-export">Download a portable household export</a></li><li class="toc-level-2"><a href="#import-into-another-household">Import into another household</a></li><li class="toc-level-2"><a href="#create-a-consistent-sqlite-snapshot">Create a consistent SQLite snapshot</a></li><li class="toc-level-2"><a href="#restore-a-complete-volume">Restore a complete volume</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>
