@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Mealf needs a valid HTTPS origin for browser authentication and PWA installation. Set BASEURL to that exact origin, for example https://mealf.example.com, without /app/ or another "><title>HTTPS and reverse proxy — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/https-and-reverse-proxy.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html" aria-current="page">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Start here</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#host-installed-caddy-example">Host-installed Caddy example</a></li><li class="toc-level-2"><a href="#forwarded-headers-and-proxy-trust">Forwarded headers and proxy trust</a></li><li class="toc-level-2"><a href="#request-limits">Request limits</a></li><li class="toc-level-2"><a href="#verify-browser-access">Verify browser access</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">HTTPS and reverse proxy</h1>
+<p>Mealf needs a valid HTTPS origin for browser authentication and PWA installation.
+Set <code>BASE_URL</code> to that exact origin, for example <code>https://mealf.example.com</code>, without
+<code>/app/</code> or another path. A non-default HTTPS port, if used, is part of the origin.
+Serve the console, PWA and API on that same origin.</p>
+<p>Use <a href="cloudflare-tunnel.html">Cloudflare Tunnel</a> or your own HTTPS reverse proxy. The installation guide’s <code>compose.yml</code> publishes port 5152. Its host-installed proxy target is <code>127.0.0.1:5152</code>. Source-build configurations may retain port 8080. Keep normal certificate verification enabled.</p>
+<h2 id="host-installed-caddy-example">Host-installed Caddy example</h2>
+<p>Point your hostname's DNS at the reverse proxy and arrange certificate issuance using
+your chosen Caddy deployment. Install a current supported Caddy version. The backend
+should be reachable from that host at <code>127.0.0.1:5152</code>.</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>caddy</span><button type="button" class="wiki-copy" aria-label="Copy caddy code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-caddy">mealf.example.com {
+    @archive path /api/v1/admin/import/archive
+    request_body @archive {
+        max_size 280MiB
+    }
+    @jsonRestore path /api/v1/admin/import
+    request_body @jsonRestore {
+        max_size 8MiB
+    }
+    @uploads path /api/v1/media/* /api/v1/import-sources/*
+    request_body @uploads {
+        max_size 9MiB
+    }
+    @ordinary not path /api/v1/admin/import/archive /api/v1/admin/import /api/v1/media/* /api/v1/import-sources/*
+    request_body @ordinary {
+        max_size 1500000
+    }
+    reverse_proxy 127.0.0.1:5152
+}
+</code></pre></div><p>Replace the hostname, validate the Caddy configuration and reload using your host's
+service-management procedure. If the reverse proxy is another container, place both
+services on an appropriate private network and use <code>mealf:5152</code> (preview) or
+<code>aircooker:8080</code> (source build). Its own <code>127.0.0.1</code> will not reach the backend container.</p>
+<p>The import-source route is available only in images containing the AI media-import
+feature. Keeping its ingress allowance does not enable a missing backend feature.</p>
+<h2 id="forwarded-headers-and-proxy-trust">Forwarded headers and proxy trust</h2>
+<p>Have the proxy preserve the public host and forward the original scheme and client IP.
+Set <code>TRUSTED_PROXY_CIDRS</code> to only the actual proxy peer address(es) or controlled proxy
+range seen by Uvicorn. An empty value is the default. Never use <code>*</code> on public ingress.
+Host-to-container traffic can appear as a Docker bridge gateway; do not assume that a
+host-installed proxy appears as loopback inside the container.</p>
+<p>For a container proxy, a fixed address on a dedicated network provides a predictable
+peer. The <a href="cloudflare-tunnel.html#option-b-connector-in-docker">Cloudflare Docker example</a>
+shows this pattern. Do not trust an entire LAN or all private networks merely to make
+forwarding work. Recreate the backend after changing its environment.</p>
+<h2 id="request-limits">Request limits</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Request</th>
+<th>Backend limit</th>
+<th>Proxy allowance in the example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ordinary JSON/API writes</td>
+<td>1,500,000 bytes</td>
+<td>1,500,000 bytes</td>
+</tr>
+<tr>
+<td>Recipe photos and AI source uploads</td>
+<td>8 MiB source, with bounded request overhead</td>
+<td>9 MiB</td>
+</tr>
+<tr>
+<td>Household JSON import</td>
+<td>8 MiB</td>
+<td>8 MiB</td>
+</tr>
+<tr>
+<td>Household ZIP import</td>
+<td>280 MiB</td>
+<td>280 MiB</td>
+</tr>
+</tbody>
+</table></div>
+<p>Keep limits specific to their routes. Increasing the proxy allowance does not raise
+the application's own limit. Add suitable read timeouts and ingress rate limits for
+your host; an AI call can take up to its configured timeout. There is no required
+WebSocket or streaming ingress. An external CDN may impose a lower upload ceiling.</p>
+<h2 id="verify-browser-access">Verify browser access</h2>
+<ol>
+<li>Visit <code>/api/v1/system/health</code> on the public HTTPS hostname.</li>
+<li>Visit <code>/</code> and <code>/app/</code> and sign in using that same hostname.</li>
+<li>Save a test recipe and check that it survives reload.</li>
+<li>If you will use them, test image upload and a private export/import in your environment.</li>
+</ol>
+<p>Session cookies are always Secure, HttpOnly and SameSite=Strict. Unsafe cookie requests
+also need the configured Origin and CSRF token. Do not strip cookies or Origin headers,
+split the API onto a second hostname, or disable these checks to fix login. See
+<a href="troubleshooting.html">Troubleshooting</a> for 401/403 and certificate errors.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/DEPLOYMENT.md" rel="noopener noreferrer">deployment</a>
+and <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/SECURITY_MODEL.md" rel="noopener noreferrer">security model</a>.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/HTTPS-and-Reverse-Proxy.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="cloudflare-tunnel.html"><span>Previous guide</span><strong>Cloudflare Tunnel</strong></a><a href="configuration.html"><span>Next guide</span><strong>Configuration <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#host-installed-caddy-example">Host-installed Caddy example</a></li><li class="toc-level-2"><a href="#forwarded-headers-and-proxy-trust">Forwarded headers and proxy trust</a></li><li class="toc-level-2"><a href="#request-limits">Request limits</a></li><li class="toc-level-2"><a href="#verify-browser-access">Verify browser access</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

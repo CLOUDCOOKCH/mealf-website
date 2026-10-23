@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "markdown-it": "14.1.0"
+  },
+  "name": "mealf-landing-page",
+  "private": true,
+  "scripts": {
+    "build:wiki": "node scripts/build-wiki.mjs"
+  }
+}

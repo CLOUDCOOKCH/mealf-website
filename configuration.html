@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Mealf has two kinds of settings: container environment values controlled by the operator, and household/integration settings saved through the application. Changing the container t"><title>Configuration — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/configuration.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html" aria-current="page">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Use &amp; configure</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#container-settings">Container settings</a></li><li class="toc-level-2"><a href="#household-and-account">Household and account</a></li><li class="toc-level-2"><a href="#ai-settings-and-precedence">AI settings and precedence</a></li><li class="toc-level-2"><a href="#persistent-state">Persistent state</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Configuration</h1>
+<p>Mealf has two kinds of settings: container environment values controlled by the operator,
+and household/integration settings saved through the application. Changing the container
+time zone or an environment default does not overwrite saved household settings.</p>
+<h2 id="container-settings">Container settings</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Variable</th>
+<th>Default</th>
+<th>Configure it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DATA_DIR</code></td>
+<td><code>/data</code></td>
+<td>Persistent local state; keep the Docker volume mounted here</td>
+</tr>
+<tr>
+<td><code>BASE_URL</code></td>
+<td><code>https://localhost</code></td>
+<td>Exact public HTTPS origin, with no application path</td>
+</tr>
+<tr>
+<td><code>TZ</code></td>
+<td>Image setting</td>
+<td>Process time zone; household planning has its own saved IANA time zone</td>
+</tr>
+<tr>
+<td><code>TRUSTED_PROXY_CIDRS</code></td>
+<td>Empty</td>
+<td>Actual ingress proxy peers; never universal trust</td>
+</tr>
+<tr>
+<td><code>LOG_LEVEL</code></td>
+<td><code>info</code></td>
+<td>Server logging; avoid third-party debug logs that can disclose content</td>
+</tr>
+<tr>
+<td><code>LOG_SETUP_TOKEN</code></td>
+<td><code>true</code></td>
+<td>Whether an unconfigured startup prints its one-time token</td>
+</tr>
+</tbody>
+</table></div>
+<p>The installation guide’s <code>compose.yml</code> sets backend values directly under the service’s
+<code>environment:</code> section. Edit <code>BASE_URL</code>, <code>TZ</code> and any verified <code>TRUSTED_PROXY_CIDRS</code>
+there. An <code>.env</code> file is not required for this configuration. Its <code>image</code> uses the moving
+<code>:preview</code> tag with <code>pull_policy: always</code>; run <code>docker compose up -d</code> to fetch updates.
+The explicit command and healthcheck both use port 5152.</p>
+<p>For the source-build <code>compose.yaml</code>, edit the literal environment values in that file
+or use an explicit Compose override. After changes, use <code>docker compose ... up -d</code> with
+the same files/project to recreate the container. A plain <code>restart</code> does not load changed
+environment values. Preserve the volume and keep only one backend process.</p>
+<h2 id="household-and-account">Household and account</h2>
+<p>At the administration console (<code>/</code>):</p>
+<ul>
+<li><strong>Household</strong> saves the name, IANA time zone and default language.</li>
+<li><strong>Account</strong> lists device sessions and lets you revoke sessions or change the password.</li>
+<li><strong>AI</strong> saves optional provider profiles and the selected default model.</li>
+<li><strong>Bring!</strong> connects credentials and selects an existing list.</li>
+<li><strong>Data</strong> downloads portable exports and imports compatible JSON/ZIP files.</li>
+</ul>
+<p>The console is available in English and German. Its display-language selector is
+separate from the saved household language. The shared household account has access to
+these settings; there is no separate administrator-role system.</p>
+<p>In the PWA (<code>/app/</code>), Settings also contains AI configuration, device display choices,
+storage/sync recovery, household meal-suggestion preferences and per-device reminders.
+Save shared preferences while connected. Reminder drafts remain local until explicitly
+saved. See <a href="pwa-and-offline-use.html">PWA and offline use</a> and <a href="meal-reminders.html">Meal reminders</a>.</p>
+<h2 id="ai-settings-and-precedence">AI settings and precedence</h2>
+<p>The application can save Gemini, OpenAI, OpenRouter and custom OpenAI-compatible
+profiles. Legacy text adapters for Anthropic, Ollama and OpenWebUI remain available.
+Model names are administrator-supplied; no model version is guessed. Capabilities
+must be enabled for the selected model. See <a href="ai-recipe-import.html">AI recipe import</a>.</p>
+<p>Saved encrypted settings override AI environment settings. A saved <strong>disabled</strong> state
+also overrides them. Changing <code>AI_MODEL</code> in Compose will therefore not replace a saved
+profile. Inspect the reported configuration origin and edit the application setting.</p>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Optional AI variable</th>
+<th>Default / meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AI_PROVIDER</code></td>
+<td>Unset: disabled; supported provider identifier</td>
+</tr>
+<tr>
+<td><code>AI_BASE_URL</code></td>
+<td>Provider default; required for a custom compatible API</td>
+</tr>
+<tr>
+<td><code>AI_MODEL</code></td>
+<td>Required when AI is enabled; exact supported model ID</td>
+</tr>
+<tr>
+<td><code>AI_API_KEY_FILE</code></td>
+<td>Private regular key file readable by the backend; no group/world permissions or symlink</td>
+</tr>
+<tr>
+<td><code>AI_INPUT_FORMATS</code></td>
+<td><code>text</code>; comma-separated supported capabilities, without spaces</td>
+</tr>
+<tr>
+<td><code>AI_TIMEOUT</code></td>
+<td><code>30</code>; valid range 1–120 seconds</td>
+</tr>
+<tr>
+<td><code>AI_MAX_CONTENT</code></td>
+<td><code>50000</code>; valid range 100–100000 UTF-8 bytes for text</td>
+</tr>
+<tr>
+<td><code>AI_REQUESTS_PER_HOUR</code></td>
+<td><code>20</code>; valid range 1–1000, shared by imports and probes</td>
+</tr>
+<tr>
+<td><code>AI_STRUCTURED_OUTPUT</code></td>
+<td><code>0</code>; set <code>1</code> only after verifying model/API JSON support</td>
+</tr>
+<tr>
+<td><code>AI_ALLOW_LOCAL_HTTP</code></td>
+<td><code>0</code>; explicit opt-in for a trusted self-hosted HTTP API</td>
+</tr>
+</tbody>
+</table></div>
+<p>For key-file deployments, mount the file read-only with restrictive permissions that
+permit UID 10001 to read it. Standard secret-file defaults may be too permissive for
+this check. Do not put keys in an endpoint URL or recipe, and do not disable public TLS
+verification. Application-managed keys are encrypted server-side and never returned to
+the browser.</p>
+<h2 id="persistent-state">Persistent state</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Path under <code>/data</code></th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>database/aircooker.sqlite3</code> and WAL/SHM</td>
+<td>Household records, sync history and durable jobs</td>
+</tr>
+<tr>
+<td><code>media/</code></td>
+<td>Recipe photos</td>
+</tr>
+<tr>
+<td><code>jobs/</code></td>
+<td>Protected temporary export/restore files</td>
+</tr>
+<tr>
+<td><code>backups/</code></td>
+<td>Operator-created local snapshots</td>
+</tr>
+<tr>
+<td><code>config/setup-token</code></td>
+<td>One-time bootstrap token, removed after setup</td>
+</tr>
+<tr>
+<td><code>config/integrations.key</code></td>
+<td>Installation encryption key; required to decrypt saved integrations</td>
+</tr>
+<tr>
+<td><code>config/ai-provider.enc</code></td>
+<td>Saved encrypted AI settings and profiles</td>
+</tr>
+<tr>
+<td><code>config/bring.enc</code></td>
+<td>Encrypted Bring! connection settings</td>
+</tr>
+<tr>
+<td><code>config/webpush-vapid.enc</code></td>
+<td>Encrypted installation Web Push private key</td>
+</tr>
+</tbody>
+</table></div>
+<p>Some files exist only after their feature is configured. Raw AI import sources are
+private server state, separate from recipe photos, with bounded retention. Back up the
+whole volume for disaster recovery; a household export intentionally excludes credentials.
+Never delete encryption keys as a configuration-reset technique.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/DEPLOYMENT.md" rel="noopener noreferrer">deployment</a>,
+<a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/ADMINISTRATION.md" rel="noopener noreferrer">administration</a>
+and <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/src/aircooker/ai_settings.py" rel="noopener noreferrer">AI configuration implementation</a>.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Configuration.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="https-and-reverse-proxy.html"><span>Previous guide</span><strong>HTTPS &amp; reverse proxy</strong></a><a href="pwa-and-offline-use.html"><span>Next guide</span><strong>PWA &amp; offline use <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#container-settings">Container settings</a></li><li class="toc-level-2"><a href="#household-and-account">Household and account</a></li><li class="toc-level-2"><a href="#ai-settings-and-precedence">AI settings and precedence</a></li><li class="toc-level-2"><a href="#persistent-state">Persistent state</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

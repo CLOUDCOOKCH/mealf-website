@@ -1,0 +1,96 @@
+{
+  "brand": {
+    "origin": "Existing user-supplied Mealf identity in CLOUDCOOKCH/aircooker-server",
+    "wordmark": "https://raw.githubusercontent.com/CLOUDCOOKCH/aircooker-server/main/frontend/public/brand/wordmark-v1.png",
+    "peach": "https://raw.githubusercontent.com/CLOUDCOOKCH/aircooker-server/main/frontend/public/brand/peach-v1.png",
+    "favicon": "https://raw.githubusercontent.com/CLOUDCOOKCH/aircooker-server/main/frontend/public/brand/icon-64-v1.png",
+    "modifications": "None. Original derived artwork copied without visual alteration."
+  },
+  "font": {
+    "name": "Manrope Variable Latin",
+    "source": "https://cdn.jsdelivr.net/npm/@fontsource-variable/manrope@5.2.8/files/manrope-latin-wght-normal.woff2",
+    "license": "SIL Open Font License 1.1; included at dist/assets/Manrope-OFL.txt"
+  },
+  "photography": {
+    "file": "dist/assets/rigatoni.webp",
+    "origin": "Generated with image_gen for this landing page; illustrative food photograph, not a product screenshot",
+    "prompt": "Create a professional editorial food photograph for a beautiful meal-planning website. Full bleed landscape photograph, close top-down view of a generous shallow ivory ceramic bowl of creamy tomato rigatoni with cherry tomatoes and fresh basil, finely grated parmesan, a fork resting on folded natural linen to one side. Warm pale sandy travertine countertop. Beautiful soft afternoon window light from upper left, realistic rich muted red tomato sauce and deep green basil, warm natural tones, appetizing handcrafted Italian dinner, premium Kinfolk food magazine photography. The bowl should fill most of the frame with some natural counter surrounding it. No people, no hands, no lettering, no typography, no graphics, no watermarks. High detail, realistic food texture.",
+    "processing": "Proportional resize to 1440px and WebP compression. Original generated PNG retained in /workspace/generated_images."
+  },
+  "productSources": [
+    "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/README.md",
+    "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/BRANDING.md"
+  ],
+  "selfHostingGuide": {
+    "version": "preview (moving latest published preview)",
+    "composeSource": "User-provided complete compose.yml in chat, corrected 22 October 2026",
+    "localSource": "content/compose.yml",
+    "localFile": "dist/downloads/compose.yml",
+    "sha256": "b3e5e2274a0a52d14b97aafdad9494565b25cada9458d18b5de8f6021504eddb",
+    "processing": "Preserved user-provided port 5152, command, healthcheck, storage and container settings. Changed BASE_URL to https://mealf.example.com and image to the documented moving :preview tag; added pull_policy: always. Shared source for wiki and landing YAML.",
+    "imageRegistry": "https://github.com/CLOUDCOOKCH/aircooker-server/pkgs/container/mealf-server",
+    "releases": "https://github.com/CLOUDCOOKCH/aircooker-server/releases"
+  },
+  "wiki": {
+    "source": "https://github.com/CLOUDCOOKCH/aircooker-server/tree/main/docs/wiki",
+    "importedAt": "2026-10-22",
+    "articles": 13,
+    "manifest": "content/wiki/sources.json",
+    "processing": "Complete Markdown rendered as static HTML. Commands and configuration preserved. Product spelling normalized in prose only. Internal wiki links resolve locally; source-document links resolve to GitHub. Source Mermaid retained in a disclosure with an accessible SVG workflow rendering. Installation and related examples corrected to the user-provided port-5152 Compose profile; local adaptations and hashes are recorded alongside upstream provenance."
+  },
+  "screenshots": {
+    "origin": "Original screenshots supplied by the user in calendarview.zip on 23 October 2026",
+    "processing": "None. Original PNG bytes and dimensions retained; filenames normalized for web use.",
+    "files": [
+      {
+        "originalFilename": "calendarview.png",
+        "file": "dist/assets/screenshots/calendar.png",
+        "width": 1271,
+        "height": 789,
+        "sha256": "7de8056d11b6f525b9a726acf2d4e3b706ea36b39d697bf512aaf1557f62ab80"
+      },
+      {
+        "originalFilename": "homescreen.png",
+        "file": "dist/assets/screenshots/home.png",
+        "width": 1271,
+        "height": 699,
+        "sha256": "94d6b75a3889d7aab8a0ed1bf43e594bd0e9062ff2ae06a4333d0da6cf2970b9"
+      },
+      {
+        "originalFilename": "loginscreen.png",
+        "file": "dist/assets/screenshots/welcome.png",
+        "width": 1578,
+        "height": 699,
+        "sha256": "e7a8f10b44fb76300c9cc5063d9edd3c4e4fc677a4fc3951c7df46969a23b0ff"
+      },
+      {
+        "originalFilename": "pantry.png",
+        "file": "dist/assets/screenshots/pantry.png",
+        "width": 1271,
+        "height": 789,
+        "sha256": "35c4bacbd7cde3532a9d0964effc6e67250bb570edd232426e4b7e3b59a9cf8b"
+      },
+      {
+        "originalFilename": "receipe import.png",
+        "file": "dist/assets/screenshots/import.png",
+        "width": 1271,
+        "height": 789,
+        "sha256": "511d25acc4b7a00b0acdb94113cda29be86110e6213d7db9d53d063fc965d3a3"
+      },
+      {
+        "originalFilename": "receipe view.png",
+        "file": "dist/assets/screenshots/recipe.png",
+        "width": 1271,
+        "height": 789,
+        "sha256": "476a9ee2b7397abde9e7e51628372e8aa0a1c325944a8be5a7c5ceecdc960c19"
+      },
+      {
+        "originalFilename": "receipeoverview.png",
+        "file": "dist/assets/screenshots/recipes.png",
+        "width": 1271,
+        "height": 789,
+        "sha256": "1452ca2eca627b48ca242c6aad754f161c0bb648c7af91f75b5f485e3eff44c3"
+      }
+    ]
+  }
+}

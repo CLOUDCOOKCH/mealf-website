@@ -1,0 +1,96 @@
+{
+  "repository": "CLOUDCOOKCH/aircooker-server",
+  "path": "docs/wiki",
+  "ref": "main",
+  "importedAt": "2026-10-22",
+  "files": [
+    {
+      "file": "AI-Recipe-Import.md",
+      "blobSha": "aae252c556159dec9bc55aa4f536fae2694a4341",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/AI-Recipe-Import.md"
+    },
+    {
+      "file": "Backup-and-Recovery.md",
+      "blobSha": "b510e3c461c2f9e4555cf54f77b6f7f610e1d6a1",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Backup-and-Recovery.md",
+      "localBlobSha": "fc742e0ead2364eaa754a59b59bfc13c8b6aa13a",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "Bring-Integration.md",
+      "blobSha": "861d1fe4d9197f6764e83055e78cd6938637380d",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Bring-Integration.md"
+    },
+    {
+      "file": "Cloudflare-Tunnel.md",
+      "blobSha": "af0f6c7b61b01cb661e06ebd59e5866cea690b65",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Cloudflare-Tunnel.md",
+      "localBlobSha": "8a8110adb1828b4d8061bd681ef3d4e25b1c95dc",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "Configuration.md",
+      "blobSha": "22e7b489048c4827cbf4f55420c6bde35e42b11a",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Configuration.md",
+      "localBlobSha": "5d6ffc9c83ffceb9c07271ba1670cae0d1f6ae9a",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "First-Run-Setup.md",
+      "blobSha": "37642fdba6fc888431a06d9aa13b22c2ba439621",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/First-Run-Setup.md",
+      "localBlobSha": "d64ec554a63de228aad875d232d33434892dc292",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "HTTPS-and-Reverse-Proxy.md",
+      "blobSha": "e9e3eb4279df2a703383e1879cc8b64b67b7d5f4",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/HTTPS-and-Reverse-Proxy.md",
+      "localBlobSha": "7bdf01035913fa07e76493d8fe192b4924fa35ce",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "Home.md",
+      "blobSha": "4a08dca2f41500acf86dc26205b5df3c0a52737c",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Home.md"
+    },
+    {
+      "file": "Installation.md",
+      "blobSha": "d957bdb3d9badfa83ce7d567dbf36e2cc1c0caeb",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Installation.md",
+      "localBlobSha": "d3d0bd2daa1bb9268919c2bcbc2ed801360b9a08",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "Meal-Reminders.md",
+      "blobSha": "d124858c37aca8fda32115e214c4258bcc5a31b8",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Meal-Reminders.md"
+    },
+    {
+      "file": "PWA-and-Offline-Use.md",
+      "blobSha": "e0bbcbdb88757c6f7bc5694f343852468eb89031",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/PWA-and-Offline-Use.md",
+      "localBlobSha": "b6d3faa17eb190412b26055e9ff03bae7f13bee8",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "Troubleshooting.md",
+      "blobSha": "80c53f2bc0a93ffd0bb7f29bc3f7c476137dc4d8",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Troubleshooting.md",
+      "localBlobSha": "443b1cedee4aecd160f6d4616248c2ea350ebcc2",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "Upgrades-and-Maintenance.md",
+      "blobSha": "94008dbc455b5962c821d772d36c429722ed478a",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Upgrades-and-Maintenance.md",
+      "localBlobSha": "3ca5f306889ce8795bb166b3ec4e0f0ccf93cd0f",
+      "adaptation": "User-corrected compose.yml installation: port 5152, https://mealf.example.com, latest preview image; related command and ingress examples aligned."
+    },
+    {
+      "file": "_Sidebar.md",
+      "blobSha": "8de28800d3af61d7bef9080018acf09a0d51a4f5",
+      "source": "https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/_Sidebar.md"
+    }
+  ]
+}

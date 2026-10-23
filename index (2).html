@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Mealf is a self-hosted household meal planner with an installable browser app (PWA). One backend container serves the PWA at /app/, the administration console at /, the API and a d"><title>Mealf wiki — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./" aria-current="page">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Start here</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#set-up-a-new-installation">Set up a new installation</a></li><li class="toc-level-2"><a href="#configure-optional-features">Configure optional features</a></li><li class="toc-level-2"><a href="#operate-the-installation">Operate the installation</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Mealf wiki</h1>
+<p>Mealf is a self-hosted household meal planner with an installable browser app (PWA).
+One backend container serves the PWA at <code>/app/</code>, the administration console at <code>/</code>,
+the API and a durable background worker. SQLite and private configuration live in one
+persistent <code>/data</code> volume. Cloudflare Tunnel or another HTTPS reverse proxy provides
+the public entry point.</p>
+<p>This is a <strong>development preview</strong>. Review the
+<a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md" rel="noopener noreferrer">implementation status</a>
+and the notes for the image or source revision you deploy. A feature documented from
+source may not yet be included in a published image. Live AI/Bring! compatibility and
+physical iPhone behaviour have not been established by synthetic or Linux browser tests.</p>
+<h2 id="set-up-a-new-installation">Set up a new installation</h2>
+<ol>
+<li>Follow <a href="installation.html">Installation</a> to choose a prebuilt image or build from source.</li>
+<li>Configure <a href="cloudflare-tunnel.html">Cloudflare Tunnel</a> or an
+<a href="https-and-reverse-proxy.html">HTTPS reverse proxy</a>.</li>
+<li>Complete <a href="first-run-setup.html">First-run setup</a> with your private setup token.</li>
+<li>Install the <a href="pwa-and-offline-use.html">PWA</a> and create your first recipe and meal.</li>
+<li>Set up <a href="backup-and-recovery.html">backups</a> before relying on stored household data.</li>
+</ol>
+<p>You need Docker Engine with Compose v2, persistent local storage and a valid HTTPS
+hostname. No Mac, App Store account or mandatory AI subscription is required.</p>
+<h2 id="configure-optional-features">Configure optional features</h2>
+<ul>
+<li><a href="configuration.html">Configuration</a>: origins, time zones, proxy trust and server settings.</li>
+<li><a href="ai-recipe-import.html">AI recipe import</a>: cloud OCR/extraction, configurable providers and review.</li>
+<li><a href="bring-integration.html">Bring! integration</a>: optional shopping-list synchronisation.</li>
+<li><a href="meal-reminders.html">Meal reminders</a>: optional notifications on each browser device.</li>
+</ul>
+<h2 id="operate-the-installation">Operate the installation</h2>
+<ul>
+<li><a href="backup-and-recovery.html">Backup and recovery</a>: exports, sensitive backups and restoration.</li>
+<li><a href="upgrades-and-maintenance.html">Upgrades and maintenance</a>: updates, retention and rollback.</li>
+<li><a href="troubleshooting.html">Troubleshooting</a>: common problems and safe diagnostic information.</li>
+</ul>
+<p>The household uses a shared account with independent device sessions. There are no
+default credentials or separate administrator roles. Keep the data volume, container
+logs, tunnel credentials and exports private. Never run two backend instances against
+the same SQLite volume.</p>
+<p>The product was previously called <strong>aircooker</strong>. Existing package, Compose, API and
+storage names retain that identifier for compatibility; do not rename volumes during
+an upgrade. See the <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/BRANDING.md" rel="noopener noreferrer">branding and compatibility notes</a>.</p>
+</article><div class="wiki-source"><p>From the project wiki · Snapshot 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Home.md">View source on GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><span></span><a href="installation.html"><span>Next guide</span><strong>Installation <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#set-up-a-new-installation">Set up a new installation</a></li><li class="toc-level-2"><a href="#configure-optional-features">Configure optional features</a></li><li class="toc-level-2"><a href="#operate-the-installation">Operate the installation</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

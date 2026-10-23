@@ -1,0 +1,74 @@
+.self-host { padding-top: 72px; padding-bottom: 86px; border-top: 1px solid var(--line); }
+.hosting-layout { display: grid; grid-template-columns: 310px minmax(0, 1fr); gap: 85px; align-items: start; }
+.hosting-intro { position: sticky; top: 28px; }
+.hosting-intro h2 { font-size: 43px; line-height: 1.18; }
+.hosting-intro h2 span { color: var(--clay); }
+.hosting-intro > p { margin-top: 22px; font-size: 12px; line-height: 1.9; }
+.hosting-requirements { display: grid; gap: 11px; padding: 0; margin: 23px 0 27px; list-style: none; font-size: 11px; color: var(--green); }
+.hosting-requirements li { display: flex; align-items: center; gap: 9px; }
+.hosting-requirements .icon { width: 16px; height: 16px; }
+.hosting-version { margin-top: 22px; font-size: 9px; color: var(--muted); line-height: 1.9; }
+.hosting-version a { color: var(--green); text-decoration: underline; }
+.hosting-steps { margin: 0; padding: 0; list-style: none; counter-reset: hosting-step; min-width: 0; }
+.hosting-steps > li { position: relative; padding-left: 47px; counter-increment: hosting-step; }
+.hosting-steps > li + li { padding-top: 32px; margin-top: 32px; border-top: 1px solid var(--line); }
+.hosting-steps > li::before { content: counter(hosting-step); position: absolute; left: 0; top: 0; display: grid; place-items: center; width: 29px; height: 29px; background: var(--sage); color: var(--green); border-radius: 50%; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.hosting-steps > li + li::before { top: 32px; }
+.hosting-steps h3 { font-size: 20px; line-height: 1.4; font-weight: 500; letter-spacing: -.025em; margin-bottom: 11px; }
+.hosting-steps p { font-size: 12px; line-height: 1.9; }
+.hosting-steps p + p { margin-top: 12px; }
+.hosting-steps a:not(.hosting-download) { color: var(--green); text-decoration: underline; }
+.hosting-steps code, .hosting-instructions > .hosting-step-note code, .hosting-troubleshooting code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .91em; overflow-wrap: anywhere; }
+.hosting-code { margin-top: 18px; border-radius: 12px; background: #253d2e; color: #f4f6ee; overflow: hidden; }
+.hosting-code-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 15px; background: #304c38; }
+.hosting-code-bar > span { font-size: 10px; color: #e3eadb; }
+.hosting-copy { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 30px; padding: 4px 8px; border-radius: 5px; background: #45624c; color: #fffefb; font-size: 10px; font-weight: 500; transition: background .2s; }
+.hosting-copy:hover { background: #56735c; }
+.hosting-copy:disabled { cursor: not-allowed; opacity: .5; }
+.hosting-copy .icon { width: 13px; height: 13px; }
+.hosting-code pre { padding: 18px; margin: 0; font-size: 12px; line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; tab-size: 2; }
+.hosting-code pre code { font-size: inherit; }
+.hosting-downloads { display: flex; flex-wrap: wrap; gap: 12px 22px; align-items: center; margin-top: 15px; }
+.hosting-download { display: inline-flex; align-items: center; gap: 7px; padding: 0; min-height: 30px; background: transparent; color: var(--green); font-size: 11px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+.hosting-download .icon { width: 14px; height: 14px; }
+.hosting-download:disabled { color: var(--muted); cursor: not-allowed; }
+.hosting-detail { margin-top: 18px; padding: 15px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.hosting-detail summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; cursor: pointer; font-size: 11px; font-weight: 600; list-style: none; }
+.hosting-detail summary::-webkit-details-marker { display: none; }
+.hosting-detail summary .icon { width: 15px; height: 15px; }
+.hosting-detail[open] summary .icon { transform: rotate(45deg); }
+.hosting-detail > p { margin-top: 14px; font-size: 11px; }
+.hosting-step-note { margin-top: 14px; font-size: 10px !important; line-height: 1.9; }
+.hosting-app-address { display: block; margin-top: 13px; padding: 13px 15px; border-radius: 8px; background: var(--sage); color: var(--green-dark); font-size: 12px !important; }
+.hosting-intro code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .92em; }
+.hosting-walkthrough, .hosting-edits { margin: 14px 0 0; padding-left: 19px; font-size: 12px; line-height: 1.9; color: var(--muted); }
+.hosting-walkthrough li + li, .hosting-edits li + li { margin-top: 9px; }
+.hosting-walkthrough strong, .hosting-edits strong { color: var(--ink); font-weight: 600; }
+.hosting-compose pre { max-height: 550px; overflow: auto; scrollbar-color: #8aa287 #253d2e; }
+.hosting-route { margin: 18px 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.hosting-route table { width: 100%; border-collapse: collapse; font-size: 11px; line-height: 1.8; }
+.hosting-route caption { text-align: left; padding: 11px 14px; background: var(--sage); color: var(--green); font-size: 10px; font-weight: 600; }
+.hosting-route th, .hosting-route td { padding: 11px 14px; text-align: left; border-top: 1px solid var(--line); overflow-wrap: anywhere; }
+.hosting-route th { width: 34%; font-weight: 500; }
+.hosting-troubleshooting { margin-top: 32px; }
+.hosting-troubleshooting .hosting-edits { font-size: 11px; }
+@media (max-width: 1150px) { .hosting-layout { grid-template-columns: 260px minmax(0, 1fr); gap: 50px; } .hosting-intro h2 { font-size: 38px; } }
+@media (max-width: 850px) { .hosting-layout { grid-template-columns: 220px minmax(0, 1fr); gap: 32px; } .hosting-intro h2 { font-size: 33px; } .hosting-steps > li { padding-left: 37px; } .hosting-steps h3 { font-size: 18px; } .hosting-code pre { font-size: 11px; padding: 15px; } }
+@media (max-width: 680px) {
+  .self-host { padding-top: 48px; padding-bottom: 54px; }
+  .hosting-layout { grid-template-columns: minmax(0, 1fr); gap: 38px; }
+  .hosting-intro { position: static; }
+  .hosting-intro h2 { font-size: 39px; }
+  .hosting-intro > p { max-width: 400px; font-size: 12px; margin-top: 19px; }
+  .hosting-requirements { gap: 10px; margin-top: 21px; margin-bottom: 23px; }
+  .hosting-version { margin-top: 16px; }
+  .hosting-steps > li { padding-left: 0; }
+  .hosting-steps > li::before { width: 27px; height: 27px; }
+  .hosting-steps h3 { min-height: 27px; padding-left: 39px; font-size: 19px; }
+  .hosting-steps p { font-size: 12px; }
+  .hosting-code-bar { padding: 9px 12px; }
+  .hosting-copy { min-height: 34px; }
+  .hosting-code pre { font-size: 11px; line-height: 1.95; }
+  .hosting-steps > li + li { margin-top: 27px; padding-top: 27px; }
+  .hosting-steps > li + li::before { top: 27px; }
+}

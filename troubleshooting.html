@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Start with the exact image/source revision, backend health and the affected URL. Use the same Compose files and project name as your installation. Preview service name is mealf; so"><title>Troubleshooting — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/troubleshooting.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html" aria-current="page">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Maintain</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#basic-checks">Basic checks</a></li><li class="toc-level-2"><a href="#installation-setup-and-login">Installation, setup and login</a></li><li class="toc-level-2"><a href="#cloudflare-and-reverse-proxy">Cloudflare and reverse proxy</a></li><li class="toc-level-2"><a href="#pwa-offline-data-and-synchronisation">PWA, offline data and synchronisation</a></li><li class="toc-level-2"><a href="#imports-bring-and-reminders">Imports, Bring! and reminders</a></li><li class="toc-level-2"><a href="#information-to-include-in-an-issue">Information to include in an issue</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Troubleshooting</h1>
+<p>Start with the exact image/source revision, backend health and the affected URL. Use
+the same Compose files and project name as your installation. Preview service name is
+<code>mealf</code>; source-build service name is <code>aircooker</code>.</p>
+<h2 id="basic-checks">Basic checks</h2>
+<p>For preview Compose with a host ingress:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose -f compose.yml ps
+curl --fail http://127.0.0.1:5152/api/v1/system/health
+curl --fail https://mealf.example.com/api/v1/system/health
+</code></pre></div><p>Replace the hostname. If using the Docker tunnel overlay, add
+<code>-f compose.tunnel.yaml</code> to Compose commands. Private HTTP health checks do not verify
+public cookies, CSRF, PWA installation or external integrations.</p>
+<p>Read private logs locally when needed:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose -f compose.yml logs --tail=100 mealf
+</code></pre></div><p>Unconfigured startup logs contain the one-time setup token by default. Redact it before
+sharing any log excerpt. Use administration Overview for bounded job states/error codes;
+do not upload a database, <code>.env</code> file or complete Compose configuration containing secrets.</p>
+<h2 id="installation-setup-and-login">Installation, setup and login</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check / action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend stops or cannot write <code>/data</code></td>
+<td>Verify volume mount, free space and UID/GID 10001 ownership; retain the single backend process</td>
+</tr>
+<tr>
+<td>Unhealthy after upgrade</td>
+<td>Inspect migration errors privately; preserve the volume and use the matching backup/image for rollback</td>
+</tr>
+<tr>
+<td>Setup appears after an upgrade</td>
+<td>Stop and check the original volume/project mapping before creating another household</td>
+</tr>
+<tr>
+<td>Setup token missing</td>
+<td>Check private unconfigured startup logs or <code>/data/config/setup-token</code>; configured households use sign-in/local recovery</td>
+</tr>
+<tr>
+<td>Setup is locked</td>
+<td>The household exists; use its credentials or interactive local password recovery</td>
+</tr>
+<tr>
+<td>Browser 401 / session expired</td>
+<td>Sign in again; the console's access session is short-lived, and password changes/recovery revoke sessions</td>
+</tr>
+<tr>
+<td>Browser 403 after the page loads</td>
+<td>Verify valid HTTPS, exact <code>BASE_URL</code> including any port, same-origin API use and cookie/CSRF handling</td>
+</tr>
+<tr>
+<td>Environment edit has no effect</td>
+<td>Recreate with <code>up -d</code>; <code>restart</code> retains the old environment; <code>.env</code> values must be referenced by Compose</td>
+</tr>
+<tr>
+<td>Certificate failure</td>
+<td>Fix DNS, hostname and certificate chain; do not disable certificate verification</td>
+</tr>
+<tr>
+<td>HTTP 429</td>
+<td>Wait for the application/provider rate-limit window and inspect configured quotas; avoid repeated retries</td>
+</tr>
+</tbody>
+</table></div>
+<p>See <a href="first-run-setup.html">First-run setup</a>, <a href="configuration.html">Configuration</a> and
+<a href="upgrades-and-maintenance.html">Upgrades and maintenance</a>.</p>
+<h2 id="cloudflare-and-reverse-proxy">Cloudflare and reverse proxy</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check / action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cloudflare 502</td>
+<td>Test the private backend; check tunnel service URL, Docker network and port</td>
+</tr>
+<tr>
+<td>Tunnel unavailable / 1033</td>
+<td>Check connector health, token, outbound firewall connectivity and hostname route</td>
+</tr>
+<tr>
+<td>Connector in Docker cannot reach <code>127.0.0.1:5152</code></td>
+<td>Use <code>http://mealf:5152</code> on the shared network, or <code>http://aircooker:8080</code> for source Compose</td>
+</tr>
+<tr>
+<td>All clients share address-based limits</td>
+<td>Confirm proxy peer/header trust; do not set universal trusted proxies</td>
+</tr>
+<tr>
+<td>HTML loads but API calls return a login/challenge page</td>
+<td>Inspect Cloudflare Access/WAF policy and ensure legitimate app/API requests can complete</td>
+</tr>
+<tr>
+<td>Private or stale content appears through the edge</td>
+<td>Bypass cache for the Mealf hostname and remove conflicting Cache Everything/rewriting rules</td>
+</tr>
+<tr>
+<td>HTTP 413 / large restore rejected</td>
+<td>Check both application route limits and the proxy/Cloudflare plan ceiling; ZIP allows up to 280 MiB in the backend</td>
+</tr>
+</tbody>
+</table></div>
+<p>See <a href="cloudflare-tunnel.html">Cloudflare Tunnel</a> and <a href="https-and-reverse-proxy.html">HTTPS and reverse proxy</a>.</p>
+<h2 id="pwa-offline-data-and-synchronisation">PWA, offline data and synchronisation</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check / action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Install option missing</td>
+<td>Open <code>/app/</code> on valid HTTPS in a supported browser; on iPhone use Safari → Add to Home Screen</td>
+</tr>
+<tr>
+<td>Old PWA after image update</td>
+<td>Finish edits, accept the update prompt and reopen; do not clear pending local work</td>
+</tr>
+<tr>
+<td>A photo is unavailable offline</td>
+<td>It may not have been viewed/cached before disconnection</td>
+</tr>
+<tr>
+<td>Pending work will not sync</td>
+<td>Sign in, return to foreground and inspect rejected work; export unsynchronised work before recovery</td>
+</tr>
+<tr>
+<td>Server history changed after restore</td>
+<td>Preserve local exports and use explicit history recovery; old queues must not drain blindly</td>
+</tr>
+<tr>
+<td>Browser data disappeared</td>
+<td>Storage may have been evicted/cleared; restore only from surviving server/device exports and backups</td>
+</tr>
+</tbody>
+</table></div>
+<p>Signing out does not erase cached work, but clearing site data or uninstalling may.
+Browser recovery JSON is for inspection/manual reconstruction and is different from
+the server's importable household JSON/ZIP. See <a href="pwa-and-offline-use.html">PWA and offline use</a>.</p>
+<h2 id="imports-bring-and-reminders">Imports, Bring! and reminders</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check / action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI media controls are missing</td>
+<td>Check whether your deployed image includes the source feature; a Wiki page does not update an image</td>
+</tr>
+<tr>
+<td>AI says not configured despite environment values</td>
+<td>A saved disabled/profile setting overrides AI environment settings</td>
+</tr>
+<tr>
+<td>Unsupported AI input format</td>
+<td>Enable it only for a model/API that supports that exact input contract</td>
+</tr>
+<tr>
+<td>AI key rejected or model not found</td>
+<td>Verify provider, endpoint, exact model ID, account access, API billing and key restrictions</td>
+</tr>
+<tr>
+<td>AI configuration changed during a queued import</td>
+<td>Review the new destination/model and give renewed consent</td>
+</tr>
+<tr>
+<td>Import needs input / invalid extraction</td>
+<td>Correct missing facts manually; private sources and unsupported social captions are not bypassed</td>
+</tr>
+<tr>
+<td>Bring! login works but writes stay disabled</td>
+<td>Check the genuine current compatibility report matching SDK and selected test list</td>
+</tr>
+<tr>
+<td>Reconciliation is queued but list unchanged</td>
+<td>Inspect completed/failed job status and ownership/pantry/week rules; queuing is not an external-write receipt</td>
+</tr>
+<tr>
+<td>Reminder accepted but absent on device</td>
+<td>Check permission, installed-app support, Focus/connectivity, time zone and expiry; acceptance is not display proof</td>
+</tr>
+<tr>
+<td>Importing a household export returns 409</td>
+<td>Duplicate entity IDs reject the merge; destructive replacement is unsupported</td>
+</tr>
+</tbody>
+</table></div>
+<p>See <a href="ai-recipe-import.html">AI recipe import</a>, <a href="bring-integration.html">Bring! integration</a>,
+<a href="meal-reminders.html">Meal reminders</a> and <a href="backup-and-recovery.html">Backup and recovery</a>.</p>
+<h2 id="information-to-include-in-an-issue">Information to include in an issue</h2>
+<p>Share the image tag/digest or source commit, CPU architecture, browser/OS version,
+redacted error code, approximate time and minimal reproduction steps with synthetic
+data. State whether private/public health works and whether it is a host or Docker
+connector. Exclude household recipes, credentials, tunnel tokens, cookies, signed URLs,
+setup tokens and private exports. Clearly distinguish synthetic validation from a live
+provider/device result.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/DEPLOYMENT.md" rel="noopener noreferrer">deployment</a>,
+<a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/ADMINISTRATION.md" rel="noopener noreferrer">administration</a>
+and the feature-specific guides linked above.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Troubleshooting.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="upgrades-and-maintenance.html"><span>Previous guide</span><strong>Upgrades &amp; maintenance</strong></a><span></span></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#basic-checks">Basic checks</a></li><li class="toc-level-2"><a href="#installation-setup-and-login">Installation, setup and login</a></li><li class="toc-level-2"><a href="#cloudflare-and-reverse-proxy">Cloudflare and reverse proxy</a></li><li class="toc-level-2"><a href="#pwa-offline-data-and-synchronisation">PWA, offline data and synchronisation</a></li><li class="toc-level-2"><a href="#imports-bring-and-reminders">Imports, Bring! and reminders</a></li><li class="toc-level-2"><a href="#information-to-include-in-an-issue">Information to include in an issue</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

@@ -1,0 +1,55 @@
+name: mealf-preview
+
+services:
+  mealf:
+    image: ghcr.io/cloudcookch/mealf-server:preview
+    pull_policy: always
+    restart: unless-stopped
+
+    ports:
+      - "5152:5152"
+
+    environment:
+      DATA_DIR: /data
+      BASE_URL: https://mealf.example.com
+      TZ: Europe/Zurich
+      TRUSTED_PROXY_CIDRS: ""
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        umask 077
+        exec python -m uvicorn aircooker.app:create_app \
+          --factory --host 0.0.0.0 --port 5152 \
+          --workers 1 --no-access-log \
+          --forwarded-allow-ips "$${TRUSTED_PROXY_CIDRS}" \
+          --timeout-graceful-shutdown 30 --limit-concurrency 64
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5152/api/v1/system/health', timeout=3)"
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+    volumes:
+      - mealf-data:/data
+
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    mem_limit: 512m
+    stop_grace_period: 40s
+
+volumes:
+  mealf-data:

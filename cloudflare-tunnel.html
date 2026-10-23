@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Cloudflare Tunnel can expose Mealf over HTTPS without forwarding an inbound router port. The operator runs a cloudflared connector separately from the Mealf backend. Browser reques"><title>Cloudflare Tunnel — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/cloudflare-tunnel.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html" aria-current="page">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Start here</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#choose-where-the-connector-runs">Choose where the connector runs</a></li><li class="toc-level-2"><a href="#create-the-tunnel-and-hostname">Create the tunnel and hostname</a></li><li class="toc-level-2"><a href="#option-a-connector-installed-on-the-host">Option A: connector installed on the host</a></li><li class="toc-level-2"><a href="#option-b-connector-in-docker">Option B: connector in Docker</a></li><li class="toc-level-2"><a href="#cache-access-and-request-settings">Cache, access and request settings</a></li><li class="toc-level-2"><a href="#verify-the-installation">Verify the installation</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Cloudflare Tunnel</h1>
+<p>Cloudflare Tunnel can expose Mealf over HTTPS without forwarding an inbound router port.
+The operator runs a <code>cloudflared</code> connector separately from the Mealf backend. Browser
+requests travel through Cloudflare and the connector to the backend's private HTTP listener.
+Keep Mealf's account authentication enabled.</p>
+<p>You need a Cloudflare account, a domain managed in that account, permission to create a
+tunnel/public hostname and a Docker host with outbound connectivity to Cloudflare.
+Follow Cloudflare's current <a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/downloads/" rel="noopener noreferrer">connector installation instructions</a>
+for supported platforms and <a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/configure-tunnels/tunnel-with-firewall/" rel="noopener noreferrer">tunnel firewall requirements</a>.
+The connector's outbound tunnel connection is separate from the browser's HTTPS connection.</p>
+<h2 id="choose-where-the-connector-runs">Choose where the connector runs</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Connector location</th>
+<th>Public hostname's service URL</th>
+<th>Backend exposure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>On the Docker host</td>
+<td><code>http://127.0.0.1:5152</code></td>
+<td>Published port 5152 on the Docker host</td>
+</tr>
+<tr>
+<td>In a separate container</td>
+<td><code>http://mealf:5152</code> for preview Compose</td>
+<td>Shared private Docker network; the published host port remains</td>
+</tr>
+</tbody>
+</table></div>
+<p><code>127.0.0.1</code> inside a connector container refers to that connector, so it will not reach
+Mealf. For a source-build deployment the backend service name is <code>aircooker</code>, making
+the container target <code>http://aircooker:8080</code>.</p>
+<h2 id="create-the-tunnel-and-hostname">Create the tunnel and hostname</h2>
+<ol>
+<li>In Cloudflare Zero Trust, open the Cloudflare Tunnels area under Networks/Connectors
+and create a Cloudflared tunnel, for example <code>mealf</code>.</li>
+<li>Choose the host or Docker connector option. Treat the supplied tunnel token as a
+credential. Follow the dashboard's platform installation instructions privately.</li>
+<li>Add a published application/public hostname such as <code>mealf.example.com</code>. Choose
+<strong>HTTP</strong> for the service and use the address from the table above. Leave the path
+empty so <code>/</code>, <code>/app/</code> and <code>/api/</code> all reach the same backend.</li>
+<li>Confirm the dashboard creates the hostname's DNS route. Resolve any existing
+conflicting DNS record instead of creating two competing routes.</li>
+<li>Set Mealf's <code>BASE_URL</code> to <code>https://mealf.example.com</code> and recreate its container.
+For this site’s <code>compose.yml</code>, edit <code>BASE_URL</code> under <code>environment</code>; for a source build, edit the environment in <code>compose.yaml</code>. See <a href="configuration.html">Configuration</a>.</li>
+</ol>
+<p>The public connection uses HTTPS; HTTP is used only for the private connector-to-backend
+hop. Keep both on the same host/private Docker network for these examples. Do not disable
+TLS verification when configuring a different HTTPS origin service.</p>
+<h2 id="option-a-connector-installed-on-the-host">Option A: connector installed on the host</h2>
+<p>Keep the <code>5152:5152</code> port binding from the installation guide and configure the tunnel service as
+<code>http://127.0.0.1:5152</code>. Start the connector using the dashboard's instructions for your
+host OS, including its service/start-on-boot option. Tunnel credentials belong to that
+host service, not the Mealf image or application settings.</p>
+<p>Run this on the Docker host to check the private origin before testing the tunnel:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">curl --fail http://127.0.0.1:5152/api/v1/system/health
+</code></pre></div><p>It should return <code>{&quot;status&quot;:&quot;ok&quot;}</code>. Local HTTP health checks do not establish that
+browser login works; test the public HTTPS URL too.</p>
+<p>Forwarded-header trust must match the peer seen by the backend. Docker port forwarding
+can make a host connector appear as the bridge gateway rather than <code>127.0.0.1</code>.
+Confirm that address from your network configuration before setting <code>TRUSTED_PROXY_CIDRS</code>.
+Leave trust empty until verified; never use <code>*</code> or trust all networks. Without proxy trust,
+client-address rate limits may be shared across tunnel users. Option B provides an explicit
+connector address when you want a predictable Docker setup.</p>
+<h2 id="option-b-connector-in-docker">Option B: connector in Docker</h2>
+<p>This example extends <strong>preview Compose</strong> without changing its existing volume or project
+name. For an existing installation, keep using the same installation directory and
+<code>compose.yml</code>. Stop any host connector for this tunnel before switching methods.</p>
+<p>For this optional two-file connector configuration, create a private <code>.env</code> file beside <code>compose.yml</code> for the connector image and token. Keep <code>BASE_URL</code> in <code>compose.yml</code>:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>dotenv</span><button type="button" class="wiki-copy" aria-label="Copy dotenv code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-dotenv">CLOUDFLARED_IMAGE=cloudflare/cloudflared:REPLACE_WITH_REVIEWED_VERSION
+CLOUDFLARE_TUNNEL_TOKEN=REPLACE_WITH_YOUR_TUNNEL_TOKEN
+</code></pre></div><p>Replace both placeholders. Select a published cloudflared version supported by Cloudflare,
+or pin its immutable image digest. Obtain the token from the tunnel's connector setup
+screen, not from a general Cloudflare account API key. Restrict <code>.env</code> to the operator
+(<code>chmod 600 .env</code>) and exclude it from Git and support bundles. Docker administrators can
+inspect container environment values; treat them as trusted operators.</p>
+<p>Save the following as <code>compose.tunnel.yaml</code> next to <code>compose.yml</code>:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>yaml</span><button type="button" class="wiki-copy" aria-label="Copy yaml code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-yaml">services:
+  mealf:
+    environment:
+      TRUSTED_PROXY_CIDRS: &quot;172.30.85.2&quot;
+    networks:
+      tunnel:
+        ipv4_address: 172.30.85.3
+  cloudflared:
+    image: ${CLOUDFLARED_IMAGE:?Set a reviewed cloudflared image}
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:?Set the tunnel token privately}
+    networks:
+      tunnel:
+        ipv4_address: 172.30.85.2
+    read_only: true
+    tmpfs:
+      - /tmp:size=32m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    pids_limit: 100
+    mem_limit: 128m
+networks:
+  tunnel:
+    ipam:
+      config:
+        - subnet: 172.30.85.0/24
+</code></pre></div><p>The subnet is an example. Check existing host, VPN and Docker networks first. If it
+overlaps, choose an unused private subnet and change the subnet, both service IPs and trusted
+proxy address together. Both addresses are fixed to avoid allocation collisions. Trust only
+the connector's IP. The network needs outbound access,
+so do not mark it <code>internal: true</code> without providing another outbound route.</p>
+<p>Set the public hostname's service URL to <code>http://mealf:5152</code>, then start both services:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose -f compose.yml -f compose.tunnel.yaml up -d
+docker compose -f compose.yml -f compose.tunnel.yaml ps
+docker compose -f compose.yml -f compose.tunnel.yaml logs --tail=50 cloudflared
+</code></pre></div><p>Keep both <code>-f</code> arguments for future operations on this installation. The published backend port remains available for local health checks; the connector
+does not need a published port. Do not launch the base Compose file as a second project
+against the same data volume. Source-build users can adapt the overlay's <code>mealf</code> service
+key and tunnel service URL to <code>aircooker</code>, retaining their original source Compose volume.</p>
+<h2 id="cache-access-and-request-settings">Cache, access and request settings</h2>
+<ul>
+<li>Add a Cloudflare cache rule that <strong>bypasses caching for the Mealf hostname</strong>. Do not
+apply a Cache Everything rule to authenticated API, console or media responses.
+The PWA maintains its own browser cache for public application files.</li>
+<li>Keep HTML/JavaScript rewriting, such as Rocket Loader, disabled for this hostname.
+Preserve the backend's content security policy and response headers.</li>
+<li>Preserve the hostname and normal forwarding headers. Do not rewrite requests onto
+another public origin or a path prefix. No WebSocket configuration is required.</li>
+<li>Interactive Cloudflare Access login or WAF challenges can interrupt API requests,
+installed-app use and native clients. Validate those flows before adding an extra
+access layer; Mealf does not implement Cloudflare service-token authentication.</li>
+<li>Cloudflare plan limits may reject uploads below Mealf's 280 MiB archive allowance.
+For large restores, use an HTTPS ingress that supports the required size, or a
+supported smaller transfer. Never expose an unauthenticated restore route.</li>
+</ul>
+<h2 id="verify-the-installation">Verify the installation</h2>
+<p>Open <code>https://mealf.example.com/api/v1/system/health</code>, then <code>/</code> and <code>/app/</code>. Complete
+<a href="first-run-setup.html">First-run setup</a>, sign in, save a test recipe and reload. Confirm the
+tunnel remains connected after restarting the connector. An HTTP health response alone
+does not verify cookies, CSRF, uploads or PWA installation.</p>
+<p>A Cloudflare 502 usually means the connector cannot reach the configured private origin.
+Check the service name, network, port and backend health. A tunnel unavailable/1033 error
+points to connector availability or routing. A browser 403 after the page loads usually
+needs an exact <code>BASE_URL</code>, cookie/CSRF or edge-policy check. See <a href="troubleshooting.html">Troubleshooting</a>.</p>
+<p>This is a documented deployment pattern; no live Cloudflare account/tunnel was exercised
+while preparing these guides.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/DEPLOYMENT.md" rel="noopener noreferrer">deployment</a>
+and <a href="https://developers.cloudflare.com/cloudflare-one/networks/connectors/cloudflare-tunnel/get-started/create-remote-tunnel/" rel="noopener noreferrer">Cloudflare's remotely managed tunnel guide</a>.</p>
+</article><div class="wiki-source"><p>Adapted to this site’s installation · Updated 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Cloudflare-Tunnel.md">Repository reference <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="first-run-setup.html"><span>Previous guide</span><strong>First-run setup</strong></a><a href="https-and-reverse-proxy.html"><span>Next guide</span><strong>HTTPS &amp; reverse proxy <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#choose-where-the-connector-runs">Choose where the connector runs</a></li><li class="toc-level-2"><a href="#create-the-tunnel-and-hostname">Create the tunnel and hostname</a></li><li class="toc-level-2"><a href="#option-a-connector-installed-on-the-host">Option A: connector installed on the host</a></li><li class="toc-level-2"><a href="#option-b-connector-in-docker">Option B: connector in Docker</a></li><li class="toc-level-2"><a href="#cache-access-and-request-settings">Cache, access and request settings</a></li><li class="toc-level-2"><a href="#verify-the-installation">Verify the installation</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

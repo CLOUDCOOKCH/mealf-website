@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f1">
+  <meta name="description" content="Meals you’d like to fork. Your self-hosted home for recipes, weekly meal planning, Bring! shopping lists, and AI-assisted recipe conversion.">
+  <meta property="og:title" content="Mealf — Meals you’d like to fork.">
+  <meta property="og:description" content="Hot. Saucy. Available tonight. Your kitchen, to be precise. Recipes, meal planning, Bring! shopping lists, and your own AI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mealf-kitchen.cloudcook.chatgpt.site">
+  <meta property="og:image" content="https://mealf-kitchen.cloudcook.chatgpt.site/assets/rigatoni.webp">
+  <link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site">
+  <title>Mealf — Meals you’d like to fork.</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png">
+  <link rel="preload" href="assets/manrope.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/rigatoni.webp" as="image">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="peach.css">
+  <link rel="stylesheet" href="showcase.css">
+  <link rel="stylesheet" href="hosting.css">
+  <script src="app.js" defer></script>
+  <script src="hosting.js" defer></script>
+</head>
+<body>
+  <svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-expand" viewBox="0 0 24 24"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5M8 8 3 3m13 5 5-5M8 16l-5 5m13-5 5 5"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-up-right" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6c-3-2-6-2-10-1v14c4-1 7-1 10 1 3-2 6-2 10-1V5c-4-1-7-1-10 1Zm0 0v14"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M4 8h16l1 13H3L4 8Zm4 0V6a4 4 0 0 1 8 0v2"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 2.4 6.6L21 12l-6.6 2.4L12 21l-2.4-6.6L3 12l6.6-2.4L12 3Zm7 0v4m-2-2h4"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 6.5h.01M7 17.5h.01M15 6.5h3m-3 11h3"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m8 5 7 7-7 7"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M9 19c-4.3 1.3-4.3-2.2-6-2.7m12 5v-3.9c0-1.1-.4-1.7-.8-2 3-.3 6.1-1.4 6.1-6.6 0-1.5-.5-2.6-1.4-3.5.2-.4.6-1.8-.1-3.4 0 0-1.2-.4-3.7 1.3a12.7 12.7 0 0 0-6.7 0C6 1.5 4.8 1.9 4.8 1.9c-.7 1.6-.3 3-.1 3.4-.9.9-1.4 2-1.4 3.5 0 5.2 3.1 6.3 6.1 6.6-.4.3-.8 1-.8 2v3.9"/></symbol>
+  </defs></svg>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="brand" href="#" aria-label="Mealf home"><img src="assets/mealf-wordmark.png" alt="mealf" width="128" height="64"></a>
+    <nav aria-label="Main navigation">
+      <a href="#possibilities">What’s on the menu</a>
+      <a href="#kitchen">Take a look inside</a>
+      <a href="#self-host">Self-hosting</a>
+      <a href="wiki/">Wiki</a>
+    </nav>
+    <a class="button button-small button-green" href="#self-host">Get Mealf <svg class="icon"><use href="#i-up-right"/></svg></a>
+  </header>
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <h1 id="hero-heading">Meals you’d<br>like to <span>fork.</span></h1>
+        <p>The self-hosted meal planner for people who like it hot, saucy, and on the kitchen table. Save recipes, plan your week, and get your Bring! shopping list ready for a good time.</p>
+        <div class="hero-actions"><a class="button button-green" href="#kitchen">Show me the hot stuff <svg class="icon"><use href="#i-arrow"/></svg></a><a class="text-link" href="#possibilities">See what’s possible <span aria-hidden="true">↓</span></a></div>
+        <div class="hosting-note"><svg class="icon"><use href="#i-server"/></svg><span>Self-hosted. We’re doing this at your place.</span></div>
+      </div>
+      <div class="hero-visual">
+        <div class="food-frame">
+          <img class="hero-food" src="assets/rigatoni.webp" alt="Creamy tomato rigatoni with fresh basil and parmesan on a warm kitchen counter" width="1440" height="960" fetchpriority="high">
+          <span class="photo-label"><span class="status-dot"></span> Hot. Saucy. Available tonight.</span>
+          <div class="tonight-recipe">
+            <div><span class="recipe-context">Dinner with benefits</span><h2>Creamy tomato rigatoni</h2><span class="recipe-meta"><svg class="icon"><use href="#i-clock"/></svg> 25 min <span>·</span> 2 servings</span></div>
+            <a class="round-button" id="hero-plan" href="#kitchen" data-open-tab="planner" aria-label="See Mealf’s real weekly calendar"><svg class="icon"><use href="#i-calendar"/></svg></a>
+          </div>
+        </div>
+        <div class="hero-caption"><span>Hot stuff. Zero small talk.</span><span>Illustrative recipe</span></div>
+        <button type="button" class="hero-peach peach-slap" aria-label="Slap the Mealf peach" title="Go on. Slap the peach."><img src="assets/mealf-peach.png" alt="" width="112" height="112" draggable="false"></button>
+      </div>
+    </section>
+
+    <section class="possibilities wrap" id="possibilities" aria-label="What you can do with Mealf">
+      <a href="#kitchen" data-open-tab="recipes"><svg class="icon"><use href="#i-book"/></svg><span>Recipes with repeat benefits</span><svg class="icon feature-arrow"><use href="#i-up-right"/></svg></a>
+      <a href="#kitchen" data-open-tab="planner"><svg class="icon"><use href="#i-calendar"/></svg><span>Book your next dinner date</span><svg class="icon feature-arrow"><use href="#i-up-right"/></svg></a>
+      <a href="wiki/bring-integration.html"><svg class="icon"><use href="#i-bag"/></svg><span>Bring! something to the table</span><svg class="icon feature-arrow"><use href="#i-up-right"/></svg></a>
+    </section>
+
+    <section class="kitchen-section wrap" id="kitchen" aria-labelledby="kitchen-heading">
+      <div class="section-intro"><h2 id="kitchen-heading">Meal planning.<br>With benefits.</h2><p>Recipes. Meal plans. A well-stocked pantry.<br class="desktop-break"> Take a look around the real Mealf.</p></div>
+      <div class="showcase-tabs" role="tablist" aria-label="Explore Mealf screenshots">
+        <button type="button" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true" data-tab="home">Home</button>
+        <button type="button" role="tab" id="tab-planner" aria-controls="panel-planner" aria-selected="false" tabindex="-1" data-tab="planner">Calendar</button>
+        <button type="button" role="tab" id="tab-recipes" aria-controls="panel-recipes" aria-selected="false" tabindex="-1" data-tab="recipes">Recipes</button>
+        <button type="button" role="tab" id="tab-recipe" aria-controls="panel-recipe" aria-selected="false" tabindex="-1" data-tab="recipe">Recipe details</button>
+        <button type="button" role="tab" id="tab-ai" aria-controls="panel-ai" aria-selected="false" tabindex="-1" data-tab="ai">Import</button>
+        <button type="button" role="tab" id="tab-pantry" aria-controls="panel-pantry" aria-selected="false" tabindex="-1" data-tab="pantry">Pantry</button>
+        <button type="button" role="tab" id="tab-welcome" aria-controls="panel-welcome" aria-selected="false" tabindex="-1" data-tab="welcome">Welcome</button>
+      </div>
+      <div class="product-showcase">
+        <div class="showcase-toolbar"><div class="showcase-brand"><button type="button" class="peach-slap" aria-label="Slap the Mealf peach" title="Go on. Slap the peach."><img src="assets/mealf-peach.png" alt="" width="28" height="28" draggable="false"></button><span>A look inside your kitchen</span></div><span>Real app screenshots</span></div>
+        <figure class="showcase-panel" role="tabpanel" id="panel-home" aria-labelledby="tab-home" data-screen-label="Home">
+          <a class="showcase-image-link" href="assets/screenshots/home.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge home screenshot" aria-haspopup="dialog"><img src="assets/screenshots/home.png" alt="Mealf home screen showing today’s meals, a weekly summary, and recipe import and planning shortcuts." width="1271" height="699" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>Your kitchen, at a glance.</h3><p>See today’s meals, your week, and shortcuts to import a recipe or plan something good.</p></div><a class="showcase-enlarge" href="assets/screenshots/home.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+        <figure class="showcase-panel" role="tabpanel" id="panel-planner" aria-labelledby="tab-planner" data-screen-label="Calendar" hidden>
+          <a class="showcase-image-link" href="assets/screenshots/calendar.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge calendar screenshot" aria-haspopup="dialog"><img src="assets/screenshots/calendar.png" alt="Mealf weekly calendar with seven day columns, breakfast and lunch slots, and Day, 3 days, and Week controls." width="1271" height="789" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>Make room for your next dinner date.</h3><p>Switch between Day, 3 days, and Week views and plan breakfast, lunch, and dinner.</p></div><a class="showcase-enlarge" href="assets/screenshots/calendar.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+        <figure class="showcase-panel" role="tabpanel" id="panel-recipes" aria-labelledby="tab-recipes" data-screen-label="Recipes" hidden>
+          <a class="showcase-image-link" href="assets/screenshots/recipes.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge recipes screenshot" aria-haspopup="dialog"><img src="assets/screenshots/recipes.png" alt="Mealf recipe collection with a search field, sorting, recipe ratings, and recipe cards." width="1271" height="789" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>Your little black cookbook.</h3><p>Search your collection, sort your recipes, and keep the ones worth seeing again.</p></div><a class="showcase-enlarge" href="assets/screenshots/recipes.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+        <figure class="showcase-panel" role="tabpanel" id="panel-recipe" aria-labelledby="tab-recipe" data-screen-label="Recipe details" hidden>
+          <a class="showcase-image-link" href="assets/screenshots/recipe.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge recipe details screenshot" aria-haspopup="dialog"><img src="assets/screenshots/recipe.png" alt="Mealf recipe detail view in German, showing Herbst Fried Rice, a recipe photo, ingredients, portions, and preparation." width="1271" height="789" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>All the delicious details.</h3><p>See ingredients and preparation side by side, change portions, and plan the recipe as a meal.</p></div><a class="showcase-enlarge" href="assets/screenshots/recipe.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+        <figure class="showcase-panel" role="tabpanel" id="panel-ai" aria-labelledby="tab-ai" data-screen-label="Import" hidden>
+          <a class="showcase-image-link" href="assets/screenshots/import.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge import screenshot" aria-haspopup="dialog"><img src="assets/screenshots/import.png" alt="Mealf recipe import screen in German with link or text and photo or screenshot options, a URL field, and optional configured AI." width="1271" height="789" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>Less teasing. More tasting.</h3><p>Import a link, text, photo, or screenshot. Review the recipe before saving, with optional configured AI.</p></div><a class="showcase-enlarge" href="assets/screenshots/import.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+        <figure class="showcase-panel" role="tabpanel" id="panel-pantry" aria-labelledby="tab-pantry" data-screen-label="Pantry" hidden>
+          <a class="showcase-image-link" href="assets/screenshots/pantry.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge pantry screenshot" aria-haspopup="dialog"><img src="assets/screenshots/pantry.png" alt="Mealf pantry showing olive oil and salt as available staples, with an option to include each in this week’s shopping." width="1271" height="789" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>Already got the good stuff?</h3><p>Mark the staples you have and choose what to include in this week’s shopping.</p></div><a class="showcase-enlarge" href="assets/screenshots/pantry.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+        <figure class="showcase-panel" role="tabpanel" id="panel-welcome" aria-labelledby="tab-welcome" data-screen-label="Welcome" hidden>
+          <a class="showcase-image-link" href="assets/screenshots/welcome.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-label="Enlarge welcome screenshot" aria-haspopup="dialog"><img src="assets/screenshots/welcome.png" alt="Mealf welcome screen with the peach mascot, Open your kitchen and Explore the demo actions, and an English language selector." width="1578" height="699" loading="lazy" decoding="async"></a>
+          <figcaption><div><h3>Get your hot buns in here.</h3><p>Open your own kitchen or explore Mealf’s demo from the welcome screen.</p></div><a class="showcase-enlarge" href="assets/screenshots/welcome.png" target="_blank" rel="noopener noreferrer" data-screen-open aria-haspopup="dialog">Enlarge <svg class="icon" aria-hidden="true"><use href="#i-expand"/></svg></a></figcaption>
+        </figure>
+      </div>
+      <p class="preview-note showcase-note">Original Mealf screens. Demo and household views in English and German. <a href="wiki/">Get to know Mealf <svg class="icon"><use href="#i-up-right"/></svg></a></p>
+    </section>
+
+    <dialog class="screen-dialog" id="screen-dialog" aria-labelledby="screen-dialog-title">
+      <div class="screen-dialog-header"><div><h2 id="screen-dialog-title">Mealf screenshot</h2><span id="screen-dialog-count"></span></div><div class="screen-dialog-actions"><button type="button" class="screen-dialog-previous" id="screen-previous" aria-label="Previous screenshot"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button><button type="button" id="screen-next" aria-label="Next screenshot"><svg class="icon" aria-hidden="true"><use href="#i-chevron"/></svg></button><button type="button" id="screen-fit">Fit to screen</button><button type="button" id="screen-close" aria-label="Close screenshot" autofocus><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div></div>
+      <div class="screen-dialog-help"><span>Scroll to explore the full-size screenshot.</span><a id="screen-original" href="assets/screenshots/home.png" target="_blank" rel="noopener noreferrer">Open original PNG <svg class="icon" aria-hidden="true"><use href="#i-up-right"/></svg></a></div>
+      <div class="screen-dialog-viewport" id="screen-viewport" tabindex="0" aria-label="Full-size screenshot; scroll horizontally and vertically to explore"><p id="screen-load" role="status">Loading screenshot…</p><img id="screen-image" alt="" width="1271" height="699" hidden></div>
+    </dialog>
+    <span class="visually-hidden" id="showcase-status" role="status" aria-live="polite"></span>
+
+    <section class="ai-story" aria-labelledby="ai-heading"><div class="wrap ai-story-inner"><div class="ai-story-copy"><h2 id="ai-heading">Food porn.<br><span>Happy endings.</span></h2><p>You’ve watched that saucy TikTok six times. Time to stop teasing yourself. Give your AI the recipe text, notes, or transcript; review it, save it, and put something hot on the table.</p><a class="text-link" href="#kitchen" data-open-tab="ai">See inspiration become a recipe <svg class="icon"><use href="#i-arrow"/></svg></a></div><div class="inspiration-note"><div class="note-top"><svg class="icon"><use href="#i-spark"/></svg><span>From dirty thoughts to dinner plans.</span></div><div class="note-line"><span>The spark</span><p>We both know why you saved that creamy pasta.</p></div><div class="note-line"><span>The recipe</span><p>Ingredients, servings, and clear steps. We love good direction.</p></div><div class="note-line"><span>The next step</span><p>Review it. Save it. Invite it back tomorrow.</p></div><div class="note-foot"><svg class="icon"><use href="#i-check"/></svg> You have the final say before saving.</div></div></div></section>
+
+    <section class="ownership wrap" id="your-kitchen" aria-labelledby="ownership-heading"><div class="ownership-art"><div class="peach-orbit"><button type="button" class="peach-slap" aria-label="Slap the Mealf peach" title="Go on. Slap the peach."><img src="assets/mealf-peach.png" alt="" width="230" height="230" draggable="false"></button></div><span class="ownership-art-caption">Stop staring. Slap the peach.</span></div><div class="ownership-copy"><h2 id="ownership-heading">Your server.<br>Your rules.<br><span>Nice rack.</span></h2><p>Mealf is self-hosted, so your recipe collection and meal planning have a home on infrastructure you control. No mandatory hosted service. No analytics or tracking.</p><div class="ownership-details"><span><svg class="icon"><use href="#i-server"/></svg> One Docker container</span><span><svg class="icon"><use href="#i-book"/></svg> Open source · Apache 2.0</span></div><a class="button button-green" href="#self-host">Take Mealf home <svg class="icon"><use href="#i-up-right"/></svg></a><p class="development-note">Currently a development preview. <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md" target="_blank" rel="noopener noreferrer">See what’s ready and what’s still cooking.</a></p></div></section>
+
+    <section class="self-host wrap" id="self-host" aria-labelledby="hosting-heading">
+      <div class="hosting-layout">
+        <div class="hosting-intro">
+          <h2 id="hosting-heading">Your server.<br><span>Your kitchen.</span></h2>
+          <p>Save this full configuration as <code>compose.yml</code>. Set <code>BASE_URL</code> to your public HTTPS address and start Mealf with Docker Compose.</p>
+          <ul class="hosting-requirements" aria-label="What you need"><li><svg class="icon"><use href="#i-server"/></svg> Docker with Compose v2</li><li><svg class="icon"><use href="#i-check"/></svg> Persistent storage for your recipes</li><li><svg class="icon"><use href="#i-check"/></svg> Your public HTTPS hostname</li></ul>
+          <p>The moving <code>:preview</code> tag tracks the latest published preview. <code>pull_policy: always</code> checks for a new image when you run <code>docker compose up -d</code>.</p>
+          <div class="hosting-version"><a href="https://github.com/CLOUDCOOKCH/aircooker-server/pkgs/container/mealf-server" target="_blank" rel="noopener noreferrer">Get the latest image and tags</a> · <a href="https://github.com/CLOUDCOOKCH/aircooker-server/releases" target="_blank" rel="noopener noreferrer">Release notes</a><br>Mealf is a development preview. <a href="wiki/installation.html">Read the installation guide</a>.</div>
+        </div>
+        <div class="hosting-instructions">
+          <div class="hosting-code"><div class="hosting-code-bar"><span>compose.yml · Mealf on port 5152</span><button type="button" class="hosting-copy" data-hosting-copy="hosting-compose" data-copy-name="Docker Compose YAML" aria-label="Copy Docker Compose YAML"><svg class="icon"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre tabindex="0" aria-label="Docker Compose YAML"><code id="hosting-compose">name: mealf-preview
+
+services:
+  mealf:
+    image: ghcr.io/cloudcookch/mealf-server:preview
+    pull_policy: always
+    restart: unless-stopped
+
+    ports:
+      - &quot;5152:5152&quot;
+
+    environment:
+      DATA_DIR: /data
+      BASE_URL: https://mealf.example.com
+      TZ: Europe/Zurich
+      TRUSTED_PROXY_CIDRS: &quot;&quot;
+
+    command:
+      - /bin/sh
+      - -c
+      - |
+        umask 077
+        exec python -m uvicorn aircooker.app:create_app \
+          --factory --host 0.0.0.0 --port 5152 \
+          --workers 1 --no-access-log \
+          --forwarded-allow-ips &quot;$${TRUSTED_PROXY_CIDRS}&quot; \
+          --timeout-graceful-shutdown 30 --limit-concurrency 64
+
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - &quot;import urllib.request; urllib.request.urlopen('http://127.0.0.1:5152/api/v1/system/health', timeout=3)&quot;
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+    volumes:
+      - mealf-data:/data
+
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 100
+    mem_limit: 512m
+    stop_grace_period: 40s
+
+volumes:
+  mealf-data:
+</code></pre></div>
+          <div class="hosting-downloads"><a class="hosting-download" href="downloads/compose.yml" download="compose.yml">Download compose.yml <svg class="icon"><use href="#i-arrow"/></svg></a></div>
+          <div class="hosting-code"><div class="hosting-code-bar"><span>Terminal · in your mealf folder</span><button type="button" class="hosting-copy" data-hosting-copy="hosting-start" data-copy-name="startup commands" aria-label="Copy startup commands"><svg class="icon"><use href="#i-copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code id="hosting-start">docker compose up -d
+docker compose logs --tail=100 mealf</code></pre></div>
+          <p class="hosting-step-note">Publish your HTTPS hostname through <a href="wiki/cloudflare-tunnel.html">Cloudflare Tunnel</a>, then open it and use the private <code>setup_token</code> from the logs for <a href="wiki/first-run-setup.html">first-run setup</a>. Keep the <code>mealf-data</code> volume when updating.</p>
+        </div>
+      </div>
+      <span class="visually-hidden" id="hosting-status" role="status" aria-live="polite" aria-atomic="true"></span>
+    </section>
+
+    <section class="faq wrap" aria-labelledby="faq-heading"><div><h2 id="faq-heading">The morning-after<br>questions.</h2><p>Before we take this back to your server.</p></div><div class="faq-items"><details><summary>What can I do with Mealf?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Keep your recipes together, plan meals on your calendar, manage pantry items, and prepare shopping lists. Optional Bring! and AI integrations connect the rest of your routine.</p></details><details><summary>How does the AI recipe conversion work?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Configure your own supported AI provider in Mealf. Give it recipe text or notes from the inspiration you found, then review the structured ingredients and steps before saving. Social imports don’t fetch authenticated videos or automatically transcribe them; you can supply text yourself.</p></details><details><summary>Can I use my Bring! shopping list?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Mealf includes an optional Bring! adapter for your shopping list. Configure it on your instance to connect your planning with Bring!. The integration is still in development; check the <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/BRING.md" target="_blank" rel="noopener noreferrer">integration guide</a> for setup and current validation status.</p></details><details><summary>Is this a dating app?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Only if your type is hot pasta. Mealf brings your recipes, calendar, and shopping list together. The chemistry is mostly garlic.</p></details><details><summary>Can Mealf handle a quickie?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Absolutely. The 25-minute pasta kind. Add the recipe to your meal plan and get the ingredients ready in Bring!. You can still go back for seconds.</p></details><details><summary>What’s with the name?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Meal meets MILF. Meals you’d like to fork. The peach isn’t an accident either.</p></details><details><summary>Where do I start?<svg class="icon"><use href="#i-plus"/></svg></summary><p>Use the <a href="#self-host">self-hosting guide</a> for the Docker Compose YAML, Cloudflare Tunnel setup, and your first sign-in. Mealf is a development version with remaining release work.</p></details></div></section>
+
+    <section class="closing wrap"><div><h2>Stop scrolling.<br><span>Start forking.</span></h2><a class="button button-cream" href="https://github.com/CLOUDCOOKCH/aircooker-server" target="_blank" rel="noopener noreferrer">Get Mealf on GitHub <svg class="icon"><use href="#i-up-right"/></svg></a></div><button type="button" class="peach-slap" aria-label="Slap the Mealf peach" title="Go on. Slap the peach."><img src="assets/mealf-peach.png" alt="" width="190" height="190" loading="lazy" draggable="false"></button></section>
+  </main>
+  <footer class="site-footer wrap"><a class="brand" href="#" aria-label="Mealf home"><img src="assets/mealf-wordmark.png" alt="mealf" width="110" height="55" loading="lazy"></a><p>Meal prep. With very impure intentions.</p><div><a href="#self-host">Self-hosting</a><a href="https://github.com/CLOUDCOOKCH/aircooker-server" target="_blank" rel="noopener noreferrer">GitHub <svg class="icon"><use href="#i-up-right"/></svg></a><a href="wiki/">Wiki &amp; documentation <svg class="icon"><use href="#i-up-right"/></svg></a></div></footer>
+  <span class="visually-hidden" id="peach-status" role="status" aria-live="polite" aria-atomic="true"></span>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="Mealf can project the current household shopping week into a selected Bring! list. This is an unofficial integration, with no affiliation with Bring! Labs AG. Review Bring!'s curre"><title>Bring! integration — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/bring-integration.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html">AI recipe import</a></li><li><a href="bring-integration.html" aria-current="page">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Use &amp; configure</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#connect-an-account-and-list">Connect an account and list</a></li><li class="toc-level-2"><a href="#why-automatic-writes-can-remain-disabled">Why automatic writes can remain disabled</a></li><li class="toc-level-2"><a href="#shopping-behaviour">Shopping behaviour</a></li><li class="toc-level-2"><a href="#reconcile-and-troubleshoot">Reconcile and troubleshoot</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">Bring! integration</h1>
+<p>Mealf can project the current household shopping week into a selected Bring! list.
+This is an <strong>unofficial integration</strong>, with no affiliation with Bring! Labs AG.
+Review Bring!'s current terms and use a dedicated disposable list for compatibility
+testing. Live service compatibility has not been verified by synthetic connector tests.</p>
+<p>The backend stores credentials and contacts Bring!; the PWA does not receive those
+credentials or call the service directly. An installed app is not required to stay open
+after a calendar change has synchronised to the backend.</p>
+<h2 id="connect-an-account-and-list">Connect an account and list</h2>
+<ol>
+<li>Sign in to the administration console at <code>/</code> and open <strong>Bring!</strong>.</li>
+<li>Enter the Bring! account credentials and save them. Saving alone does not verify login.</li>
+<li>Connect/retrieve the available existing lists.</li>
+<li>Select a list returned for that account and save the selection.</li>
+<li>Review connection and capability status before expecting automatic writes.</li>
+</ol>
+<p>Credentials are encrypted at <code>/data/config/bring.enc</code> using the installation's restricted
+<code>integrations.key</code>. Keep both in a protected full-volume backup. Disconnecting removes
+the saved connection and compatibility report without deleting existing Bring! items.</p>
+<h2 id="why-automatic-writes-can-remain-disabled">Why automatic writes can remain disabled</h2>
+<p>A successful account login and list retrieval do not prove that the unofficial API
+supports safe UUID-based changes. Mealf requires a current compatibility report matching
+the selected list UUID and the supported SDK. The current gate expects SDK <code>1.1.2</code> and a
+report no older than 30 days. The console cannot override a failed or missing report.</p>
+<p>The source checkout includes <code>scripts/bring_compatibility.py</code>. It is an explicit live
+experiment, not a runtime container command. It creates a unique test item, checks
+UUID-based replay/update/completion/removal and verifies existing items remain intact.
+It must run only against a dedicated disposable test list, with your deliberate consent
+to those external mutations.</p>
+<p>From an environment with the project's pinned Python dependencies, prepare private
+credential files and set:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">export BRING_EMAIL_FILE=/secure/bring-email
+export BRING_PASSWORD_FILE=/secure/bring-password
+export BRING_TEST_LIST_ID=REPLACE_WITH_DEDICATED_LIST_UUID
+export BRING_DEDICATED_TEST_LIST=YES
+export BRING_COMPATIBILITY_REPORT=/secure/bring-compatibility.json
+python scripts/bring_compatibility.py
+</code></pre></div><p>Replace the paths/UUID, restrict the credential files and keep passwords out of shell
+history. Do not run this on a normal household list. Install a genuinely successful
+generated report at <code>/data/config/bring-compatibility.json</code> in the backend volume,
+readable by UID 10001 with restricted permissions. Do not fabricate or edit a passed
+report. A report for one list does not authorise a different list.</p>
+<h2 id="shopping-behaviour">Shopping behaviour</h2>
+<p>The backend uses the current Monday–Sunday week in the <strong>household time zone</strong>. It
+scales ingredients to servings, combines compatible metric units, excludes available
+pantry staples and skips meals using existing leftovers. Unknown/ranged quantities
+remain explicit; it does not guess density, translations or package weights.</p>
+<p><strong>Include in shopping this week</strong> temporarily includes an available staple for that
+shopping period. It expires for the following week. Offline edits retain the week
+selected on the device, even if they reach the backend after rollover.</p>
+<p>The ownership ledger tracks the external UUIDs Mealf created. It never adopts manual
+same-name items and only updates/removes ledger-owned UUIDs. Purchased or manually
+removed requirements remain suppressed for that shopping period. Increasing an already
+purchased requirement does not silently recreate it; finer additional-quantity handling
+remains unfinished. A new week uses independent requirement identities.</p>
+<h2 id="reconcile-and-troubleshoot">Reconcile and troubleshoot</h2>
+<p>Use the console's reconciliation action when available, then inspect queue/job status.
+Queued work is not evidence that Bring! changed. The worker retries temporary failures
+with bounded backoff and polls for purchases/week rollover. Repeated failures can become
+terminal; review the safe error code before retrying.</p>
+<p>If nothing appears, check saved credentials, list membership, selected list, report age,
+matching SDK/list UUID, outbound connectivity and the current household week. Never
+disable the capability gate to make an unverified connector write. External API changes
+and races remain live-service risks.</p>
+<p>Source: <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/BRING.md" rel="noopener noreferrer">Bring! engineering guide</a>
+and <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/scripts/bring_compatibility.py" rel="noopener noreferrer">compatibility experiment</a>.</p>
+</article><div class="wiki-source"><p>From the project wiki · Snapshot 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/Bring-Integration.md">View source on GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="ai-recipe-import.html"><span>Previous guide</span><strong>AI recipe import</strong></a><a href="meal-reminders.html"><span>Next guide</span><strong>Meal reminders <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#connect-an-account-and-list">Connect an account and list</a></li><li class="toc-level-2"><a href="#why-automatic-writes-can-remain-disabled">Why automatic writes can remain disabled</a></li><li class="toc-level-2"><a href="#shopping-behaviour">Shopping behaviour</a></li><li class="toc-level-2"><a href="#reconcile-and-troubleshoot">Reconcile and troubleshoot</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>

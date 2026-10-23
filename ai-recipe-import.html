@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f8f7f1"><meta name="description" content="For a new server, complete Installation and First-run setup first. See Configuration for container settings and Troubleshooting for deployment/login problems."><title>AI Recipe Import — Mealf</title><link rel="canonical" href="https://mealf-kitchen.cloudcook.chatgpt.site/wiki/ai-recipe-import.html"><link rel="icon" href="../assets/favicon.png"><link rel="preload" href="../assets/manrope.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="../styles.css"><link rel="stylesheet" href="wiki.css"><script src="wiki.js" defer></script></head>
+<body class="wiki-page"><svg class="icon-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><symbol id="arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol><symbol id="copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol><symbol id="search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol><symbol id="chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol><symbol id="external" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol></defs></svg><a class="skip-link" href="#wiki-main">Skip to content</a>
+<header class="wiki-header"><div class="wiki-brand"><a class="brand" href="../" aria-label="Mealf home"><img src="../assets/mealf-wordmark.png" alt="mealf" width="115" height="58"></a><a class="wiki-brand-label" href="./" aria-label="Wiki home">Wiki</a></div><nav aria-label="Main navigation"><a href="../#kitchen">The app</a><a href="../#self-host">Self-hosting</a><a href="./" aria-current="page">Wiki</a><a class="wiki-github" href="https://github.com/CLOUDCOOKCH/aircooker-server">GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></nav></header>
+<div class="wiki-layout"><aside class="wiki-sidebar" aria-label="Wiki navigation"><div class="wiki-search"><label for="wiki-search">Search the wiki</label><div class="wiki-search-field"><svg class="icon" aria-hidden="true"><use href="#search"/></svg><input id="wiki-search" type="search" placeholder="Search guides…" autocomplete="off" spellcheck="false" aria-controls="wiki-search-results"><kbd aria-hidden="true">/</kbd></div></div><details class="wiki-navigation" open><summary>Browse wiki <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="Wiki topics"><div class="wiki-nav-group"><h2>Start here</h2><ul><li><a href="./">Overview</a></li><li><a href="installation.html">Installation</a></li><li><a href="first-run-setup.html">First-run setup</a></li><li><a href="cloudflare-tunnel.html">Cloudflare Tunnel</a></li><li><a href="https-and-reverse-proxy.html">HTTPS &amp; reverse proxy</a></li></ul></div><div class="wiki-nav-group"><h2>Use &amp; configure</h2><ul><li><a href="configuration.html">Configuration</a></li><li><a href="pwa-and-offline-use.html">PWA &amp; offline use</a></li><li><a href="ai-recipe-import.html" aria-current="page">AI recipe import</a></li><li><a href="bring-integration.html">Bring! integration</a></li><li><a href="meal-reminders.html">Meal reminders</a></li></ul></div><div class="wiki-nav-group"><h2>Maintain</h2><ul><li><a href="backup-and-recovery.html">Backup &amp; recovery</a></li><li><a href="upgrades-and-maintenance.html">Upgrades &amp; maintenance</a></li><li><a href="troubleshooting.html">Troubleshooting</a></li></ul></div></nav></details><p class="wiki-preview">Development preview.<br><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/IMPLEMENTATION.md">Check your version’s status <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></p></aside>
+<main id="wiki-main" class="wiki-main"><section id="wiki-search-results" class="wiki-search-results" aria-labelledby="search-heading" hidden><h1 id="search-heading">Search the wiki</h1><p id="wiki-search-status" role="status" aria-live="polite"></p><div id="wiki-result-list"></div><button type="button" id="wiki-search-clear" class="wiki-clear">Clear search &amp; return to this guide <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></button></section><div id="wiki-reading"><nav class="wiki-breadcrumb" aria-label="Breadcrumb"><a href="./">Wiki</a><svg class="icon" aria-hidden="true"><use href="#chevron"/></svg><span>Use &amp; configure</span></nav><details class="wiki-mobile-toc"><summary>On this page <svg class="icon" aria-hidden="true"><use href="#chevron"/></svg></summary><nav aria-label="On this page"><ul><li class="toc-level-2"><a href="#architecture">Architecture</a></li><li class="toc-level-2"><a href="#configure-a-provider">Configure a provider</a></li><li class="toc-level-3"><a href="#can-i-use-my-chatgpt-or-gemini-subscription">Can I use my ChatGPT or Gemini subscription?</a></li><li class="toc-level-3"><a href="#google-gemini">Google Gemini</a></li><li class="toc-level-3"><a href="#openai">OpenAI</a></li><li class="toc-level-3"><a href="#openrouter">OpenRouter</a></li><li class="toc-level-3"><a href="#custom-openai-compatible-apis">Custom OpenAI-compatible APIs</a></li><li class="toc-level-3"><a href="#docker-and-environment-configuration">Docker and environment configuration</a></li><li class="toc-level-2"><a href="#import-and-review">Import and review</a></li><li class="toc-level-3"><a href="#input-formats-and-limits">Input formats and limits</a></li><li class="toc-level-2"><a href="#add-a-model-or-provider">Add a model or provider</a></li><li class="toc-level-3"><a href="#new-model">New model</a></li><li class="toc-level-3"><a href="#new-provider-adapter">New provider adapter</a></li><li class="toc-level-2"><a href="#troubleshooting-and-security">Troubleshooting and security</a></li><li class="toc-level-2"><a href="#validation-status">Validation status</a></li></ul></nav></details><article class="wiki-prose"><h1 id="page-title">AI Recipe Import</h1>
+<p>For a new server, complete <a href="installation.html">Installation</a> and <a href="first-run-setup.html">First-run setup</a>
+first. See <a href="configuration.html">Configuration</a> for container settings and
+<a href="troubleshooting.html">Troubleshooting</a> for deployment/login problems.</p>
+<p>Mealf imports recipes from photographs, screenshots, PDFs, public recipe pages, supplied
+text, and supported cooking videos. Cloud vision performs OCR and recipe understanding;
+no OCR daemon, separate worker service, GPU, or additional Docker container is needed.</p>
+<p>Every import is a draft. Review the title, servings, ingredients, quantities, units,
+preparation/cooking/total times, and ordered instructions before saving. Missing facts
+remain unknown, and extraction issues appear in the editor. AI output is not a food
+safety, allergen, nutrition, or dietary certification.</p>
+<h2 id="architecture">Architecture</h2>
+<figure class="wiki-diagram"><div tabindex="0" role="region" aria-label="Recipe import workflow diagram"><img src="recipe-import-flow.svg" width="960" height="520" alt="Sources enter the private import queue. Complete website metadata goes straight to an editable draft. Media and incomplete metadata use AI with consent, followed by schema validation. User confirmation saves the recipe." /></div><figcaption>Recipe import: source, extraction, review, then save. Scroll horizontally if needed.</figcaption></figure><details class="wiki-diagram-source"><summary>View diagram source</summary><div class="wiki-code"><div class="wiki-code-bar"><span>mermaid</span><button type="button" class="wiki-copy" aria-label="Copy mermaid code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-mermaid">flowchart LR
+  PWA[PWA: source and explicit consent] --&gt; Upload[Authenticated private upload]
+  PWA --&gt; Queue[SQLite durable import queue]
+  Upload --&gt; Queue
+  Queue --&gt; Metadata[Website Schema.org Recipe JSON-LD]
+  Metadata --&gt;|Complete recipe| Draft[Editable preview]
+  Metadata --&gt;|Missing or unstructured, with consent| AI[Common AI provider interface]
+  Queue --&gt;|Image, PDF, supported video| AI
+  AI --&gt; Validate[Bounded provider-neutral schema validation]
+  Validate --&gt; Draft
+  Draft --&gt;|User edits and confirms| Sync[Existing transactional recipe and sync APIs]
+</code></pre></div></details><p>The FastAPI modular monolith remains a single process with one SQLite writer. The existing
+durable queue performs extraction independently of an open browser. Requests retain replay
+fingerprints, cancellation/confirmation guards, and restore-aware sync checkpoints.
+The PWA can queue a source offline in IndexedDB; after reconnection it uploads the source
+before submitting the import. Closing the browser after submission does not cancel the job.</p>
+<p>For websites, complete Schema.org Recipe JSON-LD takes precedence even when AI is enabled
+for that import. No provider request or AI quota is consumed in that case. If metadata is
+missing/incomplete, AI is used only when enabled and explicitly consented to. A failed or
+private source is not silently replaced with fabricated content or fetched through an
+authenticated scraping service.</p>
+<p>The uploaded Mealf schema bundle is preserved under <code>contracts/recipe-import/</code> as reference
+schemas and examples. <code>recipe_extraction.py</code> implements its <code>schemaVersion: &quot;1.0.0&quot;</code>
+extraction envelope with additional resource bounds and range validation. Unknown values
+are <code>null</code>, not guessed defaults; original ingredient and quantity text remain available.
+All provider adapters return <code>ExtractionResult</code>, independently of their native wire format.
+The backend validates the result even when a provider offers structured output.</p>
+<p>The existing canonical recipe/sync shape is extended additively: <code>times</code>, <code>language</code>,
+<code>yield_info</code>, <code>category</code>, <code>cuisine</code>, <code>tags</code>, ingredient annotations, <code>instruction_details</code>,
+and <code>schema_version</code>. Existing ingredient UUIDs and recipe mutation/ownership rules remain
+server/client responsibilities, never model output. The full extraction stays with the
+import draft; provider/model audit records are separate from recipe content. Incomplete
+extractions open an editor with blank missing fields. They cannot be confirmed until the
+required recipe facts are entered. Existing non-AI website imports retain their explicit
+serving-default review warning for compatibility.</p>
+<h2 id="configure-a-provider">Configure a provider</h2>
+<p>Sign in to the PWA, open <strong>Settings → AI recipe import</strong>, and enable extraction. The
+administration console at <code>/</code> also provides the configuration under <strong>Optional AI extraction</strong>.
+Mealf currently uses its existing shared household account for administration; it does
+not introduce a new role or a public registration mechanism.</p>
+<ol>
+<li>Select a provider. <strong>Google Gemini</strong> is the initial provider option. AI stays disabled
+until configured; there is no bundled credential or hardcoded model version.</li>
+<li>Enter the API base URL, exact model identifier from that provider, and API key.</li>
+<li>Enable only input formats supported by that particular model and account. Text is
+always enabled. A provider's capabilities do not imply every model supports every format.</li>
+<li>Set the hourly request limit and timeout. Enable structured JSON output only if the
+selected model/API supports it.</li>
+<li>Choose <strong>Save as default</strong>. This selects the default provider/model for new imports.</li>
+</ol>
+<p>Provider profiles, including model, capabilities and credential, are retained independently.
+Switch back to a saved provider to reuse its profile. A blank key retains the saved key
+only for the same provider and endpoint. Changing the endpoint clears the old key unless
+you supply another; <strong>Remove this provider’s saved key</strong> explicitly clears it. Disabling
+AI retains profiles while stopping extraction. Stored keys are never displayed or returned.</p>
+<p>The console's <strong>Test saved AI configuration</strong> action sends a small synthetic text recipe.
+It consumes quota and may incur charges. A successful text probe does not verify vision,
+PDFs, video, or every model capability. The import preview is the relevant functional check
+for a particular source format.</p>
+<h3 id="can-i-use-my-chatgpt-or-gemini-subscription">Can I use my ChatGPT or Gemini subscription?</h3>
+<p>Mealf's implemented cloud adapters authenticate with API keys. Signing into the ChatGPT
+or Gemini consumer app does not configure an API key or enable Mealf extraction.</p>
+<ul>
+<li><strong>OpenAI:</strong> API billing is separate from ChatGPT subscriptions. OpenAI also supports
+subscription allowance sharing in eligible participating apps through Sign in with
+ChatGPT; the optional <a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/CHATGPT.md" rel="noopener noreferrer">personal ChatGPT text-import connection</a> implements
+that separate flow with a desktop helper and session-owned authorization. Do not use browser cookies,
+consumer account passwords or tokens copied from another tool as an API credential.</li>
+<li><strong>Gemini:</strong> create a Gemini API project/key in Google AI Studio. Its free tier supports
+certain models within account/model quotas; paid usage uses the project's separate Cloud
+Billing configuration. A consumer subscription is not itself the API credential. Any
+subscription credit benefit depends on Google's current eligibility and supported services.</li>
+</ul>
+<p>For a first test, create a free-tier Gemini API key if available for your account/region,
+select an available model with the required input formats, enter the key in Mealf settings,
+save, and run the saved-configuration test in the console. Then import one non-sensitive
+sample recipe and review it before Save. Local English/German photo OCR remains available
+without a cloud account. Never paste the key into support chats or issues.</p>
+<p>Checked 2026-10-22 against the providers' official documentation:
+<a href="https://help.openai.com/en/articles/9039756-managing-billing-settings-on-chatgpt-web-and-platform" rel="noopener noreferrer">OpenAI API billing</a>,
+<a href="https://help.openai.com/en/articles/20001542-using-your-chatgpt-plan-in-other-apps-and-sites" rel="noopener noreferrer">ChatGPT in participating apps</a>,
+<a href="https://ai.google.dev/gemini-api/docs/billing" rel="noopener noreferrer">Gemini API billing and free tier</a>, and
+<a href="https://ai.google.dev/gemini-api/docs/api-key" rel="noopener noreferrer">Gemini API keys</a>.</p>
+<h3 id="google-gemini">Google Gemini</h3>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td><code>gemini</code></td>
+</tr>
+<tr>
+<td>API base URL</td>
+<td><code>https://generativelanguage.googleapis.com/v1beta</code></td>
+</tr>
+<tr>
+<td>Model</td>
+<td>Exact current model ID from Google AI Studio; enter it in settings</td>
+</tr>
+<tr>
+<td>Available adapter formats</td>
+<td>Text, image, PDF, video upload, public YouTube URL</td>
+</tr>
+</tbody>
+</table></div>
+<p>Create a Google AI Studio project and generate an API key at
+<a href="https://aistudio.google.com/apikey" rel="noopener noreferrer">Google AI Studio</a>. Review the project's billing,
+quota, region and data-use terms. Restrict the key to the required API where supported,
+then enter it in Mealf settings. Do not paste keys into recipe text or browser source code.</p>
+<p>The adapter uses <code>generateContent</code> with native inline media, a separate system instruction,
+JSON output, and optional <code>responseJsonSchema</code>. A model must support the formats you enable.
+For video, Mealf requests only the first ten minutes, sampled at one frame per second.
+This is a bounded import, not a full-length transcription service.</p>
+<h3 id="openai">OpenAI</h3>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td><code>openai</code></td>
+</tr>
+<tr>
+<td>API base URL</td>
+<td><code>https://api.openai.com/v1</code></td>
+</tr>
+<tr>
+<td>Model</td>
+<td>Configurable model ID with the required vision/document capabilities</td>
+</tr>
+<tr>
+<td>Available adapter formats</td>
+<td>Text, image, PDF on models supporting native file input</td>
+</tr>
+</tbody>
+</table></div>
+<p>Create a project key in the <a href="https://platform.openai.com/api-keys" rel="noopener noreferrer">OpenAI API platform</a>.
+Configure project permissions and billing limits, then enter the key in Mealf. A ChatGPT
+subscription is not an API credential or API billing plan.</p>
+<p>The adapter uses Chat Completions: images are <code>image_url</code> data URLs; PDFs are native <code>file</code>
+content parts. Enable PDF only when the selected model and endpoint document that contract.
+The adapter bounds completion tokens and validates JSON locally. Native video parts and
+YouTube URLs are not sent to this adapter; use supported images or supply a transcript.</p>
+<h3 id="openrouter">OpenRouter</h3>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Provider</td>
+<td><code>openrouter</code></td>
+</tr>
+<tr>
+<td>API base URL</td>
+<td><code>https://openrouter.ai/api/v1</code></td>
+</tr>
+<tr>
+<td>Model</td>
+<td>Exact model slug, including its organization prefix</td>
+</tr>
+<tr>
+<td>Available adapter formats</td>
+<td>Text, image, PDF when supported by the selected route</td>
+</tr>
+</tbody>
+</table></div>
+<p>Create a key at <a href="https://openrouter.ai/settings/keys" rel="noopener noreferrer">OpenRouter API keys</a>. Fund/configure
+the account and key spending limits. Review the selected upstream provider's privacy and
+format support as well as OpenRouter's. Enter the key and model slug in Mealf settings.</p>
+<p>The adapter uses OpenAI-compatible content parts. PDF support depends on the route's native
+file handling; Mealf does not silently enable paid parsing plugins or switch upstream
+models to overcome incompatibility. Configure a compatible route or provide images/text.</p>
+<h3 id="custom-openai-compatible-apis">Custom OpenAI-compatible APIs</h3>
+<p>Select <code>openai-compatible</code>, enter the complete API base URL (usually ending in <code>/v1</code>), and
+obtain a credential from that service's administrator. Mealf appends <code>/chat/completions</code>.
+Supply the exact served model identifier; newer model names require no application update.</p>
+<p>Use HTTPS with a certificate trusted by the container. The existing <strong>Allow HTTP for a
+trusted self-hosted endpoint</strong> option is an explicit administrator opt-in for an internal
+service; it is not a certificate-verification bypass. Configure private DNS/routing and
+an appropriate trust chain in the deployment. Do not send a cloud key to an unrelated
+custom endpoint. Legacy Anthropic/Ollama/OpenWebUI text configurations remain supported;
+this feature does not enable native media for those legacy adapters.</p>
+<h3 id="docker-and-environment-configuration">Docker and environment configuration</h3>
+<p>The existing Dockerfile builds the PWA and packages the Python modules and SQL migration.
+Rebuild and restart the existing service, preserving the <code>/data</code> volume:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>Terminal</span><button type="button" class="wiki-copy" aria-label="Copy sh code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-sh">docker compose up --build -d
+</code></pre></div><p>The existing <strong>Photo or screenshot</strong> camera/chooser remains a local English/German OCR
+path and sends only recognized text when optional AI is selected. The attachment field
+under <strong>Link or text</strong> is the separate path that sends a file to the configured AI model,
+after explicit consent and capability checks. Both paths require review before saving.</p>
+<p>No additional dependency or service is required. Migration <code>011_recipe_import.sql</code> creates
+the private upload and AI-attempt tables and adds extraction data to import drafts. Released
+migrations are unchanged. Standard household JSON/ZIP exports contain reviewed recipes and
+their new metadata; they exclude provider credentials and transient source uploads.</p>
+<p>Saved application settings take precedence over environment settings. For a deployment
+managed with environment variables, the existing supported alternative is:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>yaml</span><button type="button" class="wiki-copy" aria-label="Copy yaml code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-yaml">environment:
+  AI_PROVIDER: gemini
+  AI_MODEL: ${MEALF_AI_MODEL}
+  AI_INPUT_FORMATS: text,image,pdf
+  AI_API_KEY_FILE: /run/secrets/recipe_ai_key
+  AI_TIMEOUT: &quot;30&quot;
+  AI_REQUESTS_PER_HOUR: &quot;20&quot;
+</code></pre></div><p>This is a configuration fragment, not a complete Compose deployment. Mount the key file
+through your secret mechanism, readable by the application's non-root account with no
+group/other permissions (<code>0400</code> or <code>0600</code>). Never commit its contents. <code>AI_BASE_URL</code> overrides
+the provider default; <code>AI_MAX_CONTENT</code> and <code>AI_STRUCTURED_OUTPUT=1</code> are also supported.</p>
+<h2 id="import-and-review">Import and review</h2>
+<p>Open <strong>Recipes → Import recipe</strong>. Choose a supported file, paste a public URL, or supply
+recipe text. Uploaded media requires AI and an explicit disclosure checkbox. Website
+imports can use metadata without AI. Review the provider/model shown before consenting.
+If settings change while a queued AI import is waiting, extraction stops for renewed review
+rather than silently disclosing content to a different destination or model.</p>
+<p>The preview is editable using the existing recipe editor, including ingredient ranges,
+units, preparation, servings, timings and instructions. Warnings remain visible. Saving
+uses the existing durable mutation/confirmation flow; duplicate submissions do not create
+another recipe. Incomplete previews need a title, named ingredients, servings and steps
+before confirmation. Cancelled or confirmed drafts cannot be resurrected by a late worker.</p>
+<h3 id="input-formats-and-limits">Input formats and limits</h3>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Support and limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Photographs/screenshots</td>
+<td>JPEG, PNG, WebP; single frame, at most 8 MiB and 16 million decoded pixels. EXIF/GPS/text metadata is removed; images are normalized to JPEG, maximum 2048px edge and 1 MiB. Use legible scans. HEIC, SVG, animated GIF/WebP are rejected.</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>At most 8 MiB; checked for PDF signature/termination and sent natively to an enabled document-capable model. No local PDF rendering or script execution. Encrypted, corrupted, unusually long or unsupported PDFs can be rejected by the provider.</td>
+</tr>
+<tr>
+<td>Website</td>
+<td>Public HTTPS HTML or JSON-LD only; at most 1,000,000 bytes, bounded redirects/fetch time, validated public DNS addresses and pinned connections. Metadata first; AI fallback requires consent.</td>
+</tr>
+<tr>
+<td>Video upload</td>
+<td>MP4 or WebM with a matching container signature, at most 8 MiB, Gemini with <code>video</code> enabled. The cloud provider must support its codec. First ten minutes only.</td>
+</tr>
+<tr>
+<td>Video URL</td>
+<td>Public <code>youtube.com</code> / <code>youtu.be</code> watch, short or embed URL with a valid video ID; Gemini with <code>youtube</code> enabled. First ten minutes only. No playlist ingestion or arbitrary provider-side URL fetching.</td>
+</tr>
+<tr>
+<td>Other social video</td>
+<td>Public structured recipe metadata when available. Otherwise supply permitted recipe text, screenshots, or a supported video file. No private/authenticated scraping, DRM bypass, download service, or automatic social-media transcription.</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>At most 100,000 characters accepted; the selected AI configuration's UTF-8 byte limit defaults to 50,000. No silent truncation.</td>
+</tr>
+</tbody>
+</table></div>
+<p>AI requests default to <strong>20 per household per hour</strong> (including probes), with a separately
+limited probe action. Imports are capped at 20/hour and uploads at 40/hour. Provider
+requests have a configurable 1–120 second timeout, an 8192-token output ceiling, and a
+500,000-byte response ceiling. There is no automatic provider fallback that could duplicate
+charges or change the disclosure destination. App limits complement, rather than replace,
+provider billing/spending limits.</p>
+<p>Transient uploaded sources have a combined 128 MiB storage budget. Hourly maintenance
+removes sources older than seven days unless a queued import still needs them. Re-upload
+an expired source to retry. Local queued bytes remain on the device until accepted by the
+server; browser recovery exports include them as base64 media. Terminal extraction previews
+are pruned after 30 days; minimal replay receipts remain. Provider/model/error-code attempt
+metadata is retained for 90 days. Backups of the whole data volume may retain older data.</p>
+<h2 id="add-a-model-or-provider">Add a model or provider</h2>
+<h3 id="new-model">New model</h3>
+<p>Enter its exact identifier in settings, select the supported input formats, and save as
+default. No source change or model-version update is required. Test the actual formats
+you intend to use, and configure billing limits with the provider. Structured JSON support
+is a model/endpoint capability; leave its checkbox off when uncertain.</p>
+<h3 id="new-provider-adapter">New provider adapter</h3>
+<p>The common interface in <code>src/aircooker/ai.py</code> is:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>python</span><button type="button" class="wiki-copy" aria-label="Copy python code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-python">class AIProvider(Protocol):
+    def extract(self, source: AIInput) -&gt; ExtractionResult: ...
+    def close(self) -&gt; None: ...
+</code></pre></div><p><code>BaseProvider.extract</code> checks configured capabilities/limits and validates the extraction
+envelope. Implement the provider's wire mapping by overriding <code>generate_input</code>:</p>
+<div class="wiki-code"><div class="wiki-code-bar"><span>python</span><button type="button" class="wiki-copy" aria-label="Copy python code"><svg class="icon" aria-hidden="true"><use href="#copy"/></svg><span>Copy</span></button></div><pre tabindex="0"><code class="language-python">class ExampleProvider(BaseProvider):
+    def generate_input(self, source: AIInput, schema: dict) -&gt; str:
+        system, user = self.prompt(source, schema)
+        # Map supported media explicitly; reject unimplemented formats.
+        if source.kind != &quot;text&quot;:
+            raise DomainError(&quot;ai_input_format_unsupported&quot;, 422)
+        response = self.send(
+            &quot;/generate&quot;,
+            {&quot;model&quot;: self.config.model, &quot;system&quot;: system, &quot;input&quot;: user,
+             &quot;max_output_tokens&quot;: 8192},
+            {&quot;Authorization&quot;: &quot;Bearer &quot; + self.config.api_key},
+        )
+        if response.get(&quot;complete&quot;) is not True:
+            raise DomainError(&quot;ai_output_incomplete&quot;, 422)
+        return response[&quot;text&quot;]
+</code></pre></div><p>Register the provider in <code>provider_for</code>, <code>PROVIDER_ENDPOINTS</code>, and <code>PROVIDER_FORMATS</code>; extend
+the settings provider enum and UI label/options. Keep existing adapters unchanged. Use
+<code>httpx.MockTransport</code> to verify request encoding, configurable model selection, capabilities,
+authentication, truncation, quota responses and invalid JSON. Never trust a provider's claim
+of schema compliance, include keys in prompt content, or accept model-supplied record IDs.</p>
+<p>The legacy <code>extract_recipe(text)</code> method remains for existing text integrations/probes;
+new imports use <code>extract(AIInput)</code> and the neutral extraction schema.</p>
+<h2 id="troubleshooting-and-security">Troubleshooting and security</h2>
+<div class="wiki-table" role="region" aria-label="Reference table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Symptom/code</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI unavailable / <code>ai_not_configured</code></td>
+<td>Enable a provider, specify a model and save. Check that environment variables are not being overridden by a saved disabled setting.</td>
+</tr>
+<tr>
+<td><code>ai_input_format_unsupported</code></td>
+<td>Enable the format only if this model documents support, or choose a compatible model/provider and consent again.</td>
+</tr>
+<tr>
+<td><code>ai_authentication_failed</code></td>
+<td>Check the saved key, project permissions, endpoint and billing. A changed destination does not inherit another service's credential.</td>
+</tr>
+<tr>
+<td><code>ai_rate_limited</code>, <code>ai_request_limit</code>, <code>import_rate_limited</code></td>
+<td>Wait for the provider/application window to reset; check billing and configured quotas.</td>
+</tr>
+<tr>
+<td><code>ai_timeout</code>, <code>ai_provider_failed</code>, <code>ai_invalid_response</code></td>
+<td>Check the endpoint/network and service status. Increase the timeout within limits if appropriate. Provider response bodies are deliberately not echoed.</td>
+</tr>
+<tr>
+<td><code>ai_output_incomplete</code>, <code>ai_schema_validation_failed</code></td>
+<td>The model truncated/refused or returned invalid JSON. Try a clearer/smaller source or a compatible model, or enter the recipe manually.</td>
+</tr>
+<tr>
+<td><code>ai_configuration_changed_review_consent</code></td>
+<td>Review the newly selected provider/model and resubmit with renewed consent.</td>
+</tr>
+<tr>
+<td><code>import_source_expired</code></td>
+<td>Re-upload the source.</td>
+</tr>
+<tr>
+<td>Source address/URL forbidden</td>
+<td>Only permitted public HTTPS content is fetched. Do not disable SSRF or TLS checks; use permitted supplied text/media instead.</td>
+</tr>
+<tr>
+<td>PDF/video rejected</td>
+<td>Check its real format, encryption/codec, size and selected model support. Renaming a file does not convert it.</td>
+</tr>
+<tr>
+<td>Video recipe incomplete</td>
+<td>Only the first ten minutes are analysed. Supply permitted text or short clips/screenshots containing the missing facts.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The Fernet integration vault encrypts provider profiles in <code>/data/config/ai-provider.enc</code>;
+its key is in <code>/data/config/integrations.key</code>, with private file permissions. Protect the
+data volume and its backups together: encryption does not protect against an attacker who
+can read both files. Keep keys server-side, rotate compromised keys with the provider, and
+use provider-side spending limits. No keys enter IndexedDB, recovery exports, canonical
+recipes, application responses, or application logs.</p>
+<p>Uploads and extraction drafts require household authentication; browser mutations also
+use the existing CSRF checks. PDFs/videos have no public download route. Imported text
+and media are untrusted data: adapters do not enable tools or execute instructions found
+in a source. URL fetches retain private-address/redirect/TLS protections. Custom API
+destinations are trusted administrator configuration, not URLs selected by recipe content.</p>
+<p>Cloud providers receive the source you explicitly consent to send; their retention and
+training policies still apply. Obtain rights to import supplied text/media, avoid private
+screenshots, and review the chosen provider's terms before use.</p>
+<h2 id="validation-status">Validation status</h2>
+<p>Automated tests use synthetic recipe sources, mocked provider HTTP transports, and real
+local browser/API flows. They can verify encoding, validation, provider selection and
+review behavior without spending provider credits. Live provider/model/region compatibility
+and physical Apple-device behavior require separate validation with an administrator's
+configuration. This feature does not publish a Docker image or modify the independently
+pinned native iOS contract; update that companion deliberately before native adoption.</p>
+</article><div class="wiki-source"><p>From the project wiki · Snapshot 22 October 2026</p><a href="https://github.com/CLOUDCOOKCH/aircooker-server/blob/main/docs/wiki/AI-Recipe-Import.md">View source on GitHub <svg class="icon" aria-hidden="true"><use href="#external"/></svg></a></div><nav class="wiki-pagination" aria-label="Adjacent guides"><a href="pwa-and-offline-use.html"><span>Previous guide</span><strong>PWA &amp; offline use</strong></a><a href="bring-integration.html"><span>Next guide</span><strong>Bring! integration <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></strong></a></nav></div></main>
+<aside class="wiki-toc" aria-label="On this page"><h2>On this page</h2><nav><ul><li class="toc-level-2"><a href="#architecture">Architecture</a></li><li class="toc-level-2"><a href="#configure-a-provider">Configure a provider</a></li><li class="toc-level-3"><a href="#can-i-use-my-chatgpt-or-gemini-subscription">Can I use my ChatGPT or Gemini subscription?</a></li><li class="toc-level-3"><a href="#google-gemini">Google Gemini</a></li><li class="toc-level-3"><a href="#openai">OpenAI</a></li><li class="toc-level-3"><a href="#openrouter">OpenRouter</a></li><li class="toc-level-3"><a href="#custom-openai-compatible-apis">Custom OpenAI-compatible APIs</a></li><li class="toc-level-3"><a href="#docker-and-environment-configuration">Docker and environment configuration</a></li><li class="toc-level-2"><a href="#import-and-review">Import and review</a></li><li class="toc-level-3"><a href="#input-formats-and-limits">Input formats and limits</a></li><li class="toc-level-2"><a href="#add-a-model-or-provider">Add a model or provider</a></li><li class="toc-level-3"><a href="#new-model">New model</a></li><li class="toc-level-3"><a href="#new-provider-adapter">New provider adapter</a></li><li class="toc-level-2"><a href="#troubleshooting-and-security">Troubleshooting and security</a></li><li class="toc-level-2"><a href="#validation-status">Validation status</a></li></ul></nav><a class="wiki-top" href="#page-title">Back to top <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></aside></div><footer class="wiki-footer"><p>Mealf. A little more together.</p><a href="../">Back to the kitchen <svg class="icon" aria-hidden="true"><use href="#arrow"/></svg></a></footer><span class="visually-hidden" id="wiki-copy-status" role="status" aria-live="polite"></span></body></html>
